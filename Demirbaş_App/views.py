@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from .models import Worker
+from .models import Worker, Device
 from .forms import RegisterForm, LoginForm
-from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 
 # Create your views here.
@@ -14,9 +13,8 @@ def delete(request, person):
     worker.delete()
     return redirect("main")
 
-
 def loginUser(request):
-    form = LoginForm(request.POST or None )
+    form = LoginForm(request.POST or None)
     context = {"form": form}
 
     if form.is_valid():
@@ -30,7 +28,5 @@ def loginUser(request):
 
     return render(request, "login.html", context)
 
-
 def logoutUser(request):
-
     pass
