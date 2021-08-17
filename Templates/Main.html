@@ -13,7 +13,7 @@
 <body>
 {% include "includes/navbar.html"%}
     {% if veri %}
-        <table style="display-border-box; width:50%; margin-top: 15%; margin-left: 25%; margin-right: 25%;" class="table">
+        <table style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col"></th>
@@ -27,12 +27,13 @@
                     <tr>
                         <th scope="row"></th>
                         <td scope="col">{{workers.person}}</td>
-                        <td style="padding-left: 30%;"><a href="/update/{{workers.person}}" class="btn btn-dark">Güncelle</a></td>
+                        <td style="padding-left: 30%;"><a href="/update/{{workers.person}}" class="btn btn-dark">Düzenle</a></td>
                         <td style="padding-left: 10%;"><a href="/delete/{{workers.person}}" class="btn btn-dark">Sil</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <hr style="width: 50%"><hr style="width: 50%">
     {% else %}
             <div style="display-border-box; width:50%; margin-top: 15%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
                 herhangi bir veriniz yok.
