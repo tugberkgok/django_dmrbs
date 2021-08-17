@@ -8,4 +8,5 @@ def Main(request):
 def delete(request, person):
     worker = get_object_or_404(Worker, person = person)
     worker.delete()
+    print(1)
     return redirect("main")
