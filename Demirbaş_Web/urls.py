@@ -19,7 +19,9 @@ from Demirbaş_App import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
-    #path('', )
-    path('main', views.Main, name = "main"),
-    path('delete/<str:person>', views.delete, name = "delete")
+    path('', views.loginUser, name="login"),
+    path('main', views.Main, name="main"),
+    path('delete/<str:person>', views.delete, name="delete"),
+    path('logout/', views.logoutUser, name="lagout")
+
 ]
