@@ -5,9 +5,35 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>PiriReis Demirbaş</title>
 </head>
 <body>
-    <h3>Anasayfa</h3>
+    {% if veri %}
+        <table style="display-border-box; width:50%; margin-top: 15%; margin-left: 25%; margin-right: 25%;" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">İsim</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workers in veri %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td scope="col">{{workers.person}}</td>
+                        <td style="padding-left: 30%;"><a href="/update/{{workers.person}}" class="btn btn-dark">Güncelle</a></td>
+                        <td style="padding-left: 10%;"><a href="/delete/{{workers.person}}" class="btn btn-dark">Sil</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+            <div style="display-border-box; width:50%; margin-top: 15%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
+                herhangi bir veriniz yok.
+            </div>
+        {% endif %}
 </body>
 </html>

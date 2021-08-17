@@ -19,5 +19,7 @@ from Demirbaş_App import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
-    path('main', views.Main, name = "main")
+    #path('', )
+    path('main', views.Main, name = "main"),
+    path('delete/<str:person>', views.delete, name = "delete")
 ]
