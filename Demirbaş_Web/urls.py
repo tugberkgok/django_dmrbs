@@ -27,9 +27,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="lagout"),
     path('dashboard/', views.dashboard, name="dashboard"),
     path('adddata', views.adddata, name="adddata"),
-    path('addperson', views.addperson, name="addperson")
- 
-
+    path('addperson', views.addperson, name="addperson"),
     path('addPerson/', views.addUser, name="addPerson")
     #path('logout/', views.logoutUser, name="lagout")
 
