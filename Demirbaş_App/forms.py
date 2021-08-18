@@ -1,5 +1,5 @@
 from django import forms
-
+from .models import Worker, Device
 
 class LoginForm (forms.Form):
     username = forms.CharField(label= "Kullanıcı Adı")
@@ -21,3 +21,17 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Parolalar Eşleşmiyor")
         values = {"username": username, "password": password}
         return values
+
+
+
+class DataForm(forms.ModelForm):
+    class Meta:
+        model = Device
+        fields = ["stok", "device", "number", "brand", "serial", "status", "exp"]
+
+
+
+class WorkerName(forms.ModelForm):
+    class Meta:
+        model = Worker
+        fields = ["person"]

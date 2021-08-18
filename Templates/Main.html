@@ -7,11 +7,34 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
     <title>PiriReis Demirbaş</title>
+
+     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+                <p style=" font-family: 'Prata', serif; color:#ffffff; padding-top:9% " >
+                  {%if request.user.is_authenticated %}
+                   Hoşgeldiniz  {{request.user.username}} 
+                   {% else %}
+                   {% endif %} <span class="sr-only">(current)</span></p>
+
+            <li class="nav-item">
+                <a style ="color:#ffffff; padding-top:7%; padding-left: 1600%" class="nav-link disabled" href="/">Çıkış Yap</a>
+            </li>
+        </ul>
+        </div>
+    </nav>
 </head>
 
 <body>
-{% include "includes/navbar.html"%}
     {% if veri %}
         <table style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="table">
             <thead class="thead-dark">
@@ -27,7 +50,7 @@
                     <tr>
                         <th scope="row"></th>
                         <td scope="col">{{workers.person}}</td>
-                        <td style="padding-left: 30%;"><a href="/update/{{workers.person}}" class="btn btn-dark">Düzenle</a></td>
+                        <td style="padding-left: 30%;"><a href="/adddata/{{workers.person}}" class="btn btn-dark">Düzenle</a></td>
                         <td style="padding-left: 10%;"><a href="/delete/{{workers.person}}" class="btn btn-dark">Sil</a></td>
                     </tr>
                 {% endfor %}
@@ -39,5 +62,7 @@
                 herhangi bir veriniz yok.
             </div>
         {% endif %}
+        <p>
+        </p>
 </body>
 </html>

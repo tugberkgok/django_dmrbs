@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
-from .forms import RegisterForm, LoginForm
-from django.contrib.auth import login, authenticate
+from .forms import RegisterForm, LoginForm, DataForm, WorkerName
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages 
 
 # Create your views here.
 def Main(request):
@@ -29,4 +30,31 @@ def loginUser(request):
     return render(request, "login.html", context)
 
 def logoutUser(request):
-    pass
+    logout(request)
+    return redirect("/")
+
+
+def dashboard(request):
+
+    return render(request, "dashboard.html")
+
+def addperson(request):
+    form = WorkerName(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Kişi Kaydedildi", )
+        return redirect("dashboard")
+    return render(request, "addperson.html", {"form": form})
+
+def adddata(request):
+
+    form = DataForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Veri Kaydedildi", )
+        return redirect("dashboard")
+
+
+
+    return render(request, "adddata.html", {"form": form})
