@@ -9,6 +9,12 @@ def Main(request):
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri" : data})
 
+def update(request):
+    pass
+
+def addUser(request):
+    pass
+
 def delete(request, person):
     worker = get_object_or_404(Worker, person = person)
     worker.delete()
