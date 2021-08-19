@@ -22,13 +22,10 @@ urlpatterns = [
     path('', views.loginUser, name="login"),
     path('main', views.Main, name="main"),
     path('delete/<str:person>', views.delete, name="delete"),
-
-    path('adddata/<str:person>', views.adddata, name="adddataperson"),
     path('logout/', views.logoutUser, name="lagout"),
     path('dashboard/', views.dashboard, name="dashboard"),
-    path('adddata', views.adddata, name="adddata"),
-    path('addperson', views.addperson, name="addperson"),
-    path('addPerson/', views.addUser, name="addPerson")
+    path('addData', views.addData, name="addData"),
+    path('addPerson', views.addPerson, name="addPerson")
     #path('logout/', views.logoutUser, name="lagout")
 
 

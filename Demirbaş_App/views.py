@@ -12,9 +12,6 @@ def Main(request):
 def update(request):
     pass
 
-def addUser(request):
-    pass
-
 def delete(request, person):
     worker = get_object_or_404(Worker, person = person)
     worker.delete()
@@ -39,20 +36,19 @@ def logoutUser(request):
     logout(request)
     return redirect("/")
 
-
 def dashboard(request):
 
     return render(request, "dashboard.html")
 
-def addperson(request):
+def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Kişi Kaydedildi", )
         return redirect("dashboard")
-    return render(request, "addperson.html", {"form": form})
+    return render(request, "addPerson.html", {"form": form})
 
-def adddata(request):
+def addData(request):
 
     form = DataForm(request.POST or None)
 
@@ -61,6 +57,4 @@ def adddata(request):
         messages.success(request, "Veri Kaydedildi", )
         return redirect("dashboard")
 
-
-
-    return render(request, "adddata.html", {"form": form})
+    return render(request, "addData.html", {"form": form})
