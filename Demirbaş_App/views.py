@@ -2,17 +2,17 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
 from django.contrib.auth import login, authenticate, logout
-from django.contrib import messages 
+from django.contrib import messages
 
 # Create your views here.
 def Main(request):
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri" : data})
 
-def update(request,id):
-    print(type(Worker.id))
-    datas = Device.objects.get(Device.person_id_id == Worker.id)
-    return render(request, "update.html", {"datas": datas })
+def update(request, id):
+    datas = Device.objects.filter(person_id=id)
+    print(datas)
+    return render(request, "update.html", {"datas": datas, "name" : datas[0]})
 
 def delete(request, person):
     worker = get_object_or_404(Worker, person=person)
