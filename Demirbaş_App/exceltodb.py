@@ -8,14 +8,12 @@ from sqlalchemy import Table, Column, Integer, String
 from sqlalchemy import MetaData
 from sqlalchemy.orm import mapper
 
-xls = pd.ExcelFile('D:/İndirilenler/PiriReis Bilişim Bilgisayar ve Yüz Tanıma Dosyası Sifresiz.xlsx')
-file_name='D:/İndirilenler/PiriReis Bilişim Bilgisayar ve Yüz Tanıma Dosyası Sifresiz.xlsx'
-
-conn=sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
-
+#xls = pd.ExcelFile('D:/İndirilenler/PiriReis Bilişim Bilgisayar ve Yüz Tanıma Dosyası Sifresiz.xlsx')
+#file_name='D:/İndirilenler/PiriReis Bilişim Bilgisayar ve Yüz Tanıma Dosyası Sifresiz.xlsx'
+"""
 for sheet_name in xls.sheet_names:
     #print(sheet_name)
-    df = pd.read_excel(file_name, sheet_name=sheet_name, index_col=None)
+    #df = pd.read_excel(file_name, sheet_name=sheet_name, index_col=None)
     #df = df.asytpe(str)
     #print(df)
     #print("-------")
@@ -27,6 +25,11 @@ for sheet_name in xls.sheet_names:
         print(query)
         c = conn.cursor()
         c.execute(query)
+"""
 
+conn=sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+query_txt = "UPDATE Demirbaş_App_device SET model = NULL WHERE model = '{}'".format("nan")
+query = conn.cursor()
+query.execute(query_txt)
 conn.commit()
 conn.close()
