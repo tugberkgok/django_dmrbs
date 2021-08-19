@@ -20,30 +20,30 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-                <p style=" font-family: 'Prata', serif; color:#ffffff; padding-top:9% " >
-                  {%if request.user.is_authenticated %}
-                   Hoşgeldiniz  {{request.user.username}} 
-                   {% else %}
-                   {% endif %} <span class="sr-only">(current)</span></p>
-
-            <li class="nav-item">
-                <a style ="color:#ffffff; padding-top:7%; padding-left: 1600%" class="nav-link disabled" href="/">Çıkış Yap</a>
-            </li>
+            <div style="padding-top: 6%">
+                {%if request.user.is_authenticated %}
+                <p style="color:#ffffff; font-size: 20px;" >Hoşgeldiniz {{request.user.username}}<span class="sr-only">(current)</span></p>
+                {% else %}
+                {% endif %}
+            </div>
+            <div>
+                <li class="nav-item">
+                    <a style ="color:#ffffff; padding-top:7%; padding-left: 1575%" class="nav-link disabled" href="/">Çıkış Yap</a>
+                </li>
+            </div>
         </ul>
         </div>
     </nav>
 </head>
 
 <body>
-
-{% include "includes/navbar.html"%}
     <hr style="width: 100%; margin-top: 2%">
     <hr style="width: 87.5%; margin-top: 2%">
     <hr style="width: 75%; margin-top: 2%">
     <hr style="width: 62.5%; margin-top: 2%">
     <hr style="width: 50%; margin-top: 2%">
     <div style="margin-left: 65.8%; margin-top: 3%">
-        <a class="btn btn-dark" href="/addPerson/">Yeni Kişi Oluştur</a>
+        <a class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
     </div>
 
 
@@ -66,7 +66,7 @@
                         <td scope="row"></td>
                         <td scope="row" style="width: 335px">{{workers.person}}</td>
                         <td scope="row"></td>
-                        <td style="padding-left: 21.2%"><a href="/update/{{workers.person}}" class="btn btn-dark">Düzenle</a></td>
+                        <td style="padding-left: 21.2%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
                         <td style="padding-left: 14.2%"><a href="/delete/{{workers.person}}" class="btn btn-dark">Sil</a></td>
 
                     </tr>
