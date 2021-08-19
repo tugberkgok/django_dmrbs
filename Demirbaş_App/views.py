@@ -45,6 +45,7 @@ def dashboard(request):
     return render(request, "dashboard.html")
 
 def addperson(request):
+
     form = WorkerName(request.POST or None)
     if form.is_valid():
         form.save()
@@ -60,7 +61,4 @@ def adddata(request):
         form.save()
         messages.success(request, "Veri Kaydedildi", )
         return redirect("dashboard")
-
-
-
     return render(request, "adddata.html", {"form": form})
