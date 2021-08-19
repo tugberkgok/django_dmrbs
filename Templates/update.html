@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,45 +28,56 @@
         <a style="margin-left: 87%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle </a>
     <hr>
 
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Stok</th>
-      <th scope="col">Cihaz</th>
-      <th scope="col">Adet</th>
-      <th scope="col">Marka</th>
-      <th scope="col">Model</th>
-      <th scope="col">Seri No</th>
-      <th scope="col">Durum</th>
-      <th scope="col">Açıklama</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-    {% for data in datas %}
-       <tr>
-           <td scope="row">{{data.stok}}</td>
-           <td scope="row">{{data.device}}</td>
-           <td scope="row">{{data.number}}</td>
-           <td scope="row">{{data.brand}}</td>
-           <td scope="row">{{data.model}}</td>
-           <td scope="row">{{data.serial}}</td>
-           <td scope="row">{{data.status}}</td>
-           <td scope="row">{{data.exp}}</td>
-           <td><a href="  " class=" btn btn-dark "> Güncelle </a></td>
-           <td><a href=" " class="btn btn-dark "> Sil </a></td>
+  {% if datas %}
+
+    <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Stok</th>
+        <th scope="col">Cihaz</th>
+        <th scope="col">Adet</th>
+        <th scope="col">Marka</th>
+        <th scope="col">Model</th>
+        <th scope="col">Seri No</th>
+        <th scope="col">Durum</th>
+        <th scope="col">Açıklama</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
+    </thead>
+      {% for data in datas %}
+         <tr>
+             <td scope="row">{{data.stok}}</td>
+             <td scope="row">{{data.device}}</td>
+             <td scope="row">{{data.number}}</td>
+             <td scope="row">{{data.brand}}</td>
+             <td scope="row">{{data.model}}</td>
+             <td scope="row">{{data.serial}}</td>
+             <td scope="row">{{data.status}}</td>
+             <td scope="row">{{data.exp}}</td>
+             <td><a href=" object/edit " class=" btn btn-dark "> Güncelle </a></td>
+             <td><a href=" object/delete" class="btn btn-dark "> Sil </a></td>
+        </tr>
 
-    {% endfor %}
+      {% endfor %}
 
 
 
 
-   <tbody>
+     <tbody>
 
-  </tbody>
-</table>
+    </tbody>
+   <table>
+
+  {% else %}
+
+    <div class=" alert alert-danger "> Kişiye ait bir veri bulunmuyor </div>
+
+  {% endif %}
+
+
+
 
 </body>
 </html>
