@@ -23,51 +23,48 @@
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="/main">PiriReis Bilişim</a>
     </nav>
-    <h3 style="margin-left: 5%" >{{name.person_id}}</h3>
+    <h3 style="margin-left: 5%" >{{name.person}}</h3>
+
     <hr>
         <a style="margin-left: 87%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle </a>
     <hr>
-
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Stok</th>
-      <th scope="col">Cihaz</th>
-      <th scope="col">Adet</th>
-      <th scope="col">Marka</th>
-      <th scope="col">Model</th>
-      <th scope="col">Seri No</th>
-      <th scope="col">Durum</th>
-      <th scope="col">Açıklama</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-    {% for data in datas %}
-       <tr>
-           <td scope="row">{{data.stok}}</td>
-           <td scope="row">{{data.device}}</td>
-           <td scope="row">{{data.number}}</td>
-           <td scope="row">{{data.brand}}</td>
-           <td scope="row">{{data.model}}</td>
-           <td scope="row">{{data.serial}}</td>
-           <td scope="row">{{data.status}}</td>
-           <td scope="row">{{data.exp}}</td>
-           <td><a href="  " class=" btn btn-dark "> Güncelle </a></td>
-           <td><a href=" " class="btn btn-dark "> Sil </a></td>
-      </tr>
-
-    {% endfor %}
-
-
-
-
-   <tbody>
-
-  </tbody>
-</table>
-
+{% if datas %}
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Stok</th>
+          <th scope="col">Cihaz</th>
+          <th scope="col">Adet</th>
+          <th scope="col">Marka</th>
+          <th scope="col">Model</th>
+          <th scope="col">Seri No</th>
+          <th scope="col">Durum</th>
+          <th scope="col">Açıklama</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+            {% for data in datas %}
+                <tr>
+                    <td scope="row">{{data.stok}}</td>
+                    <td scope="row">{{data.device}}</td>
+                    <td scope="row">{{data.number}}</td>
+                    <td scope="row">{{data.brand}}</td>
+                    <td scope="row">{{data.model}}</td>
+                    <td scope="row">{{data.serial}}</td>
+                    <td scope="row">{{data.status}}</td>
+                    <td scope="row">{{data.exp}}</td>
+                    <td><a href="  " class=" btn btn-dark "> Güncelle </a></td>
+                    <td><a href=" " class="btn btn-dark "> Sil </a></td>
+                </tr>
+            {% endfor %}
+    </table>
+{% else %}
+        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
+                herhangi bir veriniz yok.
+        </div>
+{% endif %}
 </body>
 </html>
 </body>
