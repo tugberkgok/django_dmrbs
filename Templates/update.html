@@ -26,11 +26,49 @@
 
 <h3  style="margin-left: 15%" >Kontrol Paneli</h3>
 <hr>
-     <a style="margin-left: 15%" class = "btn btn-dark" href = "/addPerson" > Kişi Ekle</a>
-     <hr>
     <a style="margin-left: 15%" class = "btn btn-dark" href = "/addData" > Veri Ekle </a>
 <hr>
 
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">stok</th>
+      <th scope="col">device</th>
+      <th scope="col">number</th>
+      <th scope="col">brand</th>
+      <th scope="col">model</th>
+      <th scope="col">serial</th>
+      <th scope="col">status</th>
+      <th scope="col">exp</th>
+      <th scope="col">person_id</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+    {% for data in datas %}
+       <tr>
+        <th scope="row">{{data.stok}}</th>
+        <td>{{data.device}}</td>
+        <td>{{data.number}}</td>
+        <td>{{data.brand}}</td>
+        <td>{{data.model}}</td>
+        <td>{{data.serial}}</td>
+        <td>{{data.status}}</td>
+        <td>{{data.exp}}</td>
+        <td>{{data.person_id}}</td>
+        <td><a href="  " class=" btn btn-dark "> Güncelle </a></td>
+        <td><a href="" class=" btn-dark "> Sil </a></td>
+      </tr>
+
+    {% endfor %}
+
+
+
+
+   <tbody>
+
+  </tbody>
+</table>
 
 </body>
 </html>

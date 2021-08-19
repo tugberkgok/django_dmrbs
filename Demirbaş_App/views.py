@@ -9,18 +9,19 @@ def Main(request):
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri" : data})
 
-def update(request):
-    pass
+def update(request,id):
+    print(type(Worker.id))
+    datas = Device.objects.get(Device.person_id_id == Worker.id)
+    return render(request, "update.html", {"datas": datas })
 
 def delete(request, person):
-    worker = get_object_or_404(Worker, person = person)
+    worker = get_object_or_404(Worker, person=person)
     worker.delete()
     return redirect("main")
 
 def loginUser(request):
     form = LoginForm(request.POST or None)
     context = {"form": form}
-
     if form.is_valid():
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
@@ -29,7 +30,6 @@ def loginUser(request):
             return render(request, "login.html", context)
         login(request, user)
         return redirect("main")
-
     return render(request, "login.html", context)
 
 def logoutUser(request):
@@ -37,8 +37,7 @@ def logoutUser(request):
     return redirect("/")
 
 def dashboard(request):
-
-    return render(request, "dashboard.html")
+    pass
 
 def addPerson(request):
     form = WorkerName(request.POST or None)
@@ -49,9 +48,7 @@ def addPerson(request):
     return render(request, "addPerson.html", {"form": form})
 
 def addData(request):
-
     form = DataForm(request.POST or None)
-
     if form.is_valid():
         form.save()
         messages.success(request, "Veri Kaydedildi", )
