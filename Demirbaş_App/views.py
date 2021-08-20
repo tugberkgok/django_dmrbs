@@ -11,8 +11,12 @@ def Main(request):
 
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
-    print(datas)
-    return render(request, "update.html", {"datas": datas, "name" : datas[0]})
+    person = Worker.objects.filter(id=id)
+    try:
+        if datas[0] != " ":
+            return render(request, "update.html", {"datas": datas, "name" :person[0]})
+    except:
+        return render(request, "update.html", {"name": person[0]})
 
 def delete(request, person):
     worker = get_object_or_404(Worker, person=person)
