@@ -21,4 +21,4 @@ class Device(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Kayıt Tarihi")
 
     def __str__(self):
-        return self.device
+        return str(self.person_id)
