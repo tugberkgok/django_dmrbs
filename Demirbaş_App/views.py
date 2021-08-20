@@ -43,12 +43,11 @@ def logoutUser(request):
 def dashboard(request):
     pass
 
-def addPerson(request, person):
-    name = Worker.objects.filter(person=person)
+def addPerson(request):
     form = WorkerName(request.POST or None)
-    if form.is_valid() and form != name:
+    if form.is_valid():
         form.save()
-        messages.success(request, "Kişi Kaydedildi", )
+        messages.success(request, "Kişi Kaydedildi")
         return redirect("main")
     return render(request, "addPerson.html", {"form": form})
 

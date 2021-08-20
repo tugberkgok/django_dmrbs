@@ -26,9 +26,12 @@ for sheet_name in xls.sheet_names:
         c = conn.cursor()
         c.execute(query)
 """
-
+form = input("Adınızı giriniz: ")
 conn=sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
 #query_txt = "UPDATE Demirbaş_App_device SET model = NULL WHERE model = '{}'".format("nan")
-query = "SELECT person_id FROM Demirbaş_App_device WHERE person_id = 1"
-print(type(query))
+query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(form)
+result = conn.cursor()
+result.execute(query)
+name = result.fetchone()
+print(name[0])
 conn.close()
