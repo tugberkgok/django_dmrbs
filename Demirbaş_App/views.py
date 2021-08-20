@@ -1,8 +1,11 @@
+import sqlite3
+
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+import json
 
 # Create your views here.
 def Main(request):
@@ -46,10 +49,24 @@ def dashboard(request):
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
-        form.save()
-        messages.success(request, "Kişi Kaydedildi")
-        return redirect("main")
-    return render(request, "addPerson.html", {"form": form})
+        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(str(form["person"].value()))
+        result = conn.cursor()
+        result.execute(query)
+        name = result.fetchone()
+        try:
+            if str(form["person"].value()) != str(name[0]):
+                form.save()
+                messages.success(request, "Kişi Kaydedildi")
+                return redirect("main")
+            else:
+                return render(request, "addPerson.html", {"form": form, "name": name})
+        except:
+            form.save()
+            messages.success(request, "Kişi Kaydedildi")
+            return redirect("main")
+    else:
+        return render(request, "addPerson.html", {"form": form})
 
 def addData(request):
     form = DataForm(request.POST or None)
