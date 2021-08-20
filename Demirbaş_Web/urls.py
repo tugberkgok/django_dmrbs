@@ -26,7 +26,8 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="lagout"),
     path('update/<str:id>', views.update, name="update"),
     path('addData', views.addData, name="addData"),
-    path('addPerson', views.addPerson, name="addPerson")
+    path('addPerson', views.addPerson, name="addPerson"),
+    path('edit/<int:id>-<int:pid>', views.objectEdit, name="objectEdit")
     #path('logout/', views.logoutUser, name="lagout")
 
 

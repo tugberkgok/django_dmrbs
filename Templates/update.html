@@ -18,6 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Update</title>
 </head>
+
 <body>
 
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -57,8 +58,8 @@
              <td scope="row">{{data.serial}}</td>
              <td scope="row">{{data.status}}</td>
              <td scope="row">{{data.exp}}</td>
-             <td><a href=" object/edit " class=" btn btn-dark "> Güncelle </a></td>
-             <td><a href=" object/delete" class="btn btn-dark "> Sil </a></td>
+             <td><a href="/edit/{{data.id}}-{{name.id}}" class=" btn btn-dark "> Güncelle </a></td>
+             <td><a href="edit/{{data.id}}" class="btn btn-dark "> Sil </a></td>
         </tr>
 
       {% endfor %}

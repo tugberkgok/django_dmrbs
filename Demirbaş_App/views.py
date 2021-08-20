@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 def Main(request):
     data = Worker.objects.all()
-    return render(request, "Main.html", {"veri" : data})
+    return render(request, "Main.html", {"veri": data})
 
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
@@ -59,3 +59,15 @@ def addData(request):
         return redirect("dashboard")
 
     return render(request, "addData.html", {"form": form})
+
+
+def objectEdit(request, id, pid):
+    data = Worker.objects.filter(id=id)
+    obje = get_object_or_404(Device, id=id)
+    form = DataForm(request.POST or None, request.FILES or None, instance=obje)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Veri Kaydedildi")
+        return redirect(request, "objectEdit.html", {"name" :person[0]} )
+
+    return render(request, "objectEdit.html", {"form": form})
