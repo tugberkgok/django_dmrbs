@@ -29,10 +29,9 @@
     <hr>
         <a style="margin-left: 87%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle </a>
     <hr>
-
-  {% if datas %}
-
+    {% if datas %}
     <table class="table">
+<<<<<<< HEAD
     <thead class="thead-dark">
       <tr>
         <th scope="col">Stok</th>
@@ -82,6 +81,40 @@
 
 
 
+=======
+        <thead class="thead-dark">
+            <th scope="col">Stok</th>
+            <th scope="col">Cihaz</th>
+            <th scope="col">Adet</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Model</th>
+            <th scope="col">Seri No</th>
+            <th scope="col">Durumu</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </thead>
+            {% for data in datas %}
+                <tr>
+                    <td scope="row">{{data.stok}}</td>
+                    <td scope="row">{{data.device}}</td>
+                    <td scope="row">{{data.number}}</td>
+                    <td scope="row">{{data.brand}}</td>
+                    <td scope="row">{{data.model}}</td>
+                    <td scope="row">{{data.serial}}</td>
+                    <td scope="row">{{data.status}}</td>
+                    <td scope="row">{{data.exp}}</td>
+                    <td><a href=" object/edit" class=" btn btn-dark "> Güncelle </a></td>
+                    <td><a href=" object/delete" class="btn btn-dark "> Sil </a></td>
+                </tr>
+            {% endfor %}
+    </table>
+    {% else %}
+        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
+                Herhangi bir demirbaş yok.
+        </div>
+    {% endif %}
+>>>>>>> 2a4b3a64137b0949deecd42f0404fd03ab45685b
 </body>
 </html>
 </body>
