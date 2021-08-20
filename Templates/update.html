@@ -28,7 +28,20 @@
     <hr>
         <a style="margin-left: 87%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle </a>
     <hr>
-      </thead>
+    {% if datas %}
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">Stok</th>
+            <th scope="col">Cihaz</th>
+            <th scope="col">Adet</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Model</th>
+            <th scope="col">Seri No</th>
+            <th scope="col">Durumu</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </thead>
             {% for data in datas %}
                 <tr>
                     <td scope="row">{{data.stok}}</td>
@@ -44,12 +57,11 @@
                 </tr>
             {% endfor %}
     </table>
-{% else %}
+    {% else %}
         <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
-                herhangi bir demirbaş yok.
+                Herhangi bir demirbaş yok.
         </div>
-{% endif %}
-
+    {% endif %}
 </body>
 </html>
 </body>
