@@ -44,13 +44,12 @@
     <hr style="width: 50%; margin-top: 2%">
     <div style="margin-top: 3%">
         <form>
-            <input style="margin-left:59%; " type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Ara...">
+            <input style="margin-left: 25%; width: 350px;" type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Ara...">
             <button type="submit" class="btn btn-dark">Ara</button>
+            <a style="margin-left: 17.5%" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
         </form>
-        <a style="margin-left: 65.5%; margin-top: 1%;" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
+
     </div>
-
-
     {% if veri %}
         <table style="display-border-box; width:50%; margin-left: 25%; margin-right: 25%; margin-top: 1%" class="table">
             <thead class="thead-dark">
@@ -71,7 +70,7 @@
                         <td scope="row"></td>
                         <td scope="row"></td>
                         <td scope="row"></td>
-                        <td style="padding-left: 18%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
+                        <td style="padding-left: 20%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
