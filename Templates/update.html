@@ -9,7 +9,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Update</title>
+    <title>Güncelle {{name.person}}</title>
 </head>
 <body>
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -51,11 +51,12 @@
 
                     <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
                     <td><a href=" /object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
+
                 </tr>
             {% endfor %}
     </table>
     {% else %}
-        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
+        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger">
                 Herhangi bir demirbaş yok.
         </div>
     {% endif %}

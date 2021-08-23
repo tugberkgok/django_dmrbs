@@ -91,6 +91,7 @@ def addData(request):
 
 
 def objectEdit(request, id):
+
     datas = Device.objects.filter(id=id)
     conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(datas[0])
@@ -105,3 +106,13 @@ def objectEdit(request, id):
 
     return render(request, "objectEdit.html", {"form": form})
 
+def objectDelete(request, id):
+    object = Device.objects.filter(id=id)
+    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+    query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
+    result = conn.cursor()
+    result.execute(query)
+    pid = result.fetchone()
+    conn.close()
+    object.delete()
+    return redirect("/update/{}".format(pid[0]))
