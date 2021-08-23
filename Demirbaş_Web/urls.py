@@ -29,7 +29,4 @@ urlpatterns = [
     path('addPerson', views.addPerson, name="addPerson"),
     path('edit/<int:id>', views.objectEdit, name="objectEdit"),
     path('object/delete/<int:id>', views.objectDelete, name="objectEdit")
-    #path('logout/', views.logoutUser, name="lagout")
-
-
 ]
