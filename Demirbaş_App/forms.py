@@ -27,7 +27,7 @@ class RegisterForm(forms.Form):
 class DataForm(forms.ModelForm):
     class Meta:
         model = Device
-        fields = ["stok", "device", "number", "brand", "serial", "status", "exp"]
+        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp"]
 
 
 
