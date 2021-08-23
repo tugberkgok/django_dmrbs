@@ -1,5 +1,5 @@
 import sqlite3
-
+import datetime
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
@@ -24,15 +24,12 @@ def Main(request):
 
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
-
     person = Worker.objects.filter(id=id)
-
     try:
         if datas[0] != " ":
             return render(request, "update.html", {"datas": datas, "name": person[0]})
     except:
         return render(request, "update.html", {"name": person[0]})
-
 
 def delete(request, id):
     worker = get_object_or_404(Worker, id=id)
@@ -58,11 +55,6 @@ def logoutUser(request):
     logout(request)
     return redirect("/")
 
-
-def dashboard(request):
-    pass
-
-
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
@@ -87,20 +79,32 @@ def addPerson(request):
         return render(request, "addPerson.html", {"form": form})
 
 
-def addData(request):
+def addData(request, id):
+    person = Worker.objects.filter(id=id)
     form = DataForm(request.POST or None)
     if form.is_valid():
-        form.save()
-        messages.success(request, "Veri Kaydedildi", )
-        return redirect("dashboard")
+        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
+        result = conn.cursor()
+        result.execute(query1)
+        pid = result.fetchone()
+        today = datetime.datetime.now()
+        date = today.strftime("%m/%d/%Y, %H:%M:%S")
+        query2 = "INSERT INTO Demirbaş_App_device (stok, device, number, brand, model, serial, status, exp, created_date, person_id_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
+                .format(str(form["stok"].value()), str(form["device"].value()), str(form["number"].value()), str(form["brand"].value()), str(form["model"].value()),
+                        str(form["serial"].value()), str(form["status"].value()), str(form["exp"].value()), str(date), pid[0])
+        c = conn.cursor()
+        c.execute(query2)
+        conn.commit()
+        conn.close()
+        return redirect("/update/{}".format(pid[0]))
 
     return render(request, "addData.html", {"form": form})
 
 
 def objectEdit(request, id):
-
     datas = Device.objects.filter(id=id)
-    conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
+    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(datas[0])
     result = conn.cursor()
     result.execute(query)
