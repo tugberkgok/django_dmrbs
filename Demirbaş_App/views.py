@@ -4,13 +4,20 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import json
 
 # Create your views here.
 
-
+@login_required(login_url = 'login')
 def Main(request):
+
+    keyword = request.GET.get("keyword")
+
+    if keyword:
+        data = Worker.objects.filter(person__contains = keyword)
+        return render(request, "Main.html", {"veri": data})
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri": data})
 
@@ -108,7 +115,7 @@ def objectEdit(request, id):
 
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
-    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+    conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
     result = conn.cursor()
     result.execute(query)

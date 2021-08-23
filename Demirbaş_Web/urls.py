@@ -27,8 +27,7 @@ urlpatterns = [
     path('update/<str:id>', views.update, name="update"),
     path('addData', views.addData, name="addData"),
     path('addPerson', views.addPerson, name="addPerson"),
+    path('object/edit/<int:id>', views.objectEdit, name="objectEdit"),
     path('edit/<int:id>', views.objectEdit, name="objectEdit"),
     path('object/delete/<int:id>', views.objectDelete, name="objectEdit")
-    #path('logout/', views.logoutUser, name="lagout")
-
 ]
