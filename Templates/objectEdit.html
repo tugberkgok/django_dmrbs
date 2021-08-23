@@ -9,7 +9,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Update</title>
 </head>
 <body>
@@ -23,31 +22,17 @@
   <div class="row">
 
     <div class="col-md-6 offset-md-3">
-        <h3>Veri Güncelle</h3>
+        <h3>Veri Düzenle</h3>
       <hr>
-      <form method="post" id="myForm">
+      <form method="post">
     {% csrf_token %}
     {{form|crispy}}
     <br>
-    {% for workers in veri %}
-    <!---<button type="submit" class=" btn btn-dark " > Ekle </button>--->
-    <a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a>
-    {% endfor %}
-    
- 
+    <button type="submit" class=" btn btn-dark " > Düzenle </button>
     </form></div>
 
      </div>
-     </div>
-     <script>
-         let url = window.location.href;
-         let urlPiece = url.split('/');
-         let pieces = urlPiece[urlPiece.length-1];
-         let pid = pieces.split('-')[1];
-         let form = document.getElementById('myForm');
-         form.action = "/update/" + parseInt(pid);
 
-     </script>
 
 </body>
 </html>

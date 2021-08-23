@@ -49,7 +49,7 @@ def dashboard(request):
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
-        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
         query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(str(form["person"].value()))
         result = conn.cursor()
         result.execute(query)
@@ -78,13 +78,12 @@ def addData(request):
     return render(request, "addData.html", {"form": form})
 
 
-def objectEdit(request, id, pid):
-    data = Worker.objects.filter(id=id)
+def objectEdit(request, id):
+    data = Worker.objects.filter(id = id)
     obje = get_object_or_404(Device, id=id)
     form = DataForm(request.POST or None, request.FILES or None, instance=obje)
     if form.is_valid():
         form.save()
-        messages.success(request, "Veri Kaydedildi")
-        return redirect(request, "objectEdit.html", {"name" :person[0]} )
+        return render(request, "objectEdit.html", {"name": data[0]})
 
     return render(request, "objectEdit.html", {"form": form})
