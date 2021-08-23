@@ -8,23 +8,30 @@ from django.contrib import messages
 import json
 
 # Create your views here.
+
+
 def Main(request):
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri": data})
 
+
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
+
     person = Worker.objects.filter(id=id)
+
     try:
         if datas[0] != " ":
-            return render(request, "update.html", {"datas": datas, "name" :person[0]})
+            return render(request, "update.html", {"datas": datas, "name": person[0]})
     except:
         return render(request, "update.html", {"name": person[0]})
+
 
 def delete(request, id):
     worker = get_object_or_404(Worker, id=id)
     worker.delete()
     return redirect("main")
+
 
 def loginUser(request):
     form = LoginForm(request.POST or None)
@@ -39,17 +46,20 @@ def loginUser(request):
         return redirect("main")
     return render(request, "login.html", context)
 
+
 def logoutUser(request):
     logout(request)
     return redirect("/")
 
+
 def dashboard(request):
     pass
+
 
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
-        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
         query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(str(form["person"].value()))
         result = conn.cursor()
         result.execute(query)
@@ -69,6 +79,7 @@ def addPerson(request):
     else:
         return render(request, "addPerson.html", {"form": form})
 
+
 def addData(request):
     form = DataForm(request.POST or None)
     if form.is_valid():
@@ -80,13 +91,18 @@ def addData(request):
 
 
 def objectEdit(request, id):
-    data = Worker.objects.filter(id=id)
-    object = get_object_or_404(Device, id=id)
-    form = DataForm(request.POST or None, request.FILES or None, instance=object)
+
+    datas = Device.objects.filter(id=id)
+    conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
+    query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(datas[0])
+    result = conn.cursor()
+    result.execute(query)
+    pid= result.fetchone()
+    conn.close()
+    form = DataForm(request.POST or None, request.FILES or None, instance=get_object_or_404(Device, id=id))
     if form.is_valid():
         form.save()
-        messages.success(request, "Veri Kaydedildi")
-        return redirect(request, "objectEdit.html", {"name": data[0]})
+        return redirect("/update/{}".format(pid[0]))
 
     return render(request, "objectEdit.html", {"form": form})
 

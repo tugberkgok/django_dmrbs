@@ -9,7 +9,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Update</title>
 </head>
 <body>
@@ -17,6 +16,7 @@
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
     </nav>
+
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h3>Veri Güncelle</h3>
@@ -25,20 +25,21 @@
             {% csrf_token %}
             {{form|crispy}}
             <br>
-            {% for workers in veri %}
-            <!---<button type="submit" class=" btn btn-dark " > Ekle </button>--->
-            <a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a>
-            {% endfor %}
+
+            <button type="submit" class=" btn btn-dark " > Düzenle </button>
+           <!-- <a href="{{data.id}}/decision" class="btn btn-dark">Düzenle</a>-->
+
             </form>
         </div>
     </div>
-     <script>
+    <!-- <script>
          let url = window.location.href;
          let urlPiece = url.split('/');
          let pieces = urlPiece[urlPiece.length-1];
          let pid = pieces.split('-')[1];
          let form = document.getElementById('myForm');
          form.action = "/update/" + parseInt(pid);
-     </script>
+     </script>-->
+
 </body>
 </html>

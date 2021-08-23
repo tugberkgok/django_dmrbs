@@ -18,6 +18,7 @@
     <h3 style="margin-left: 8%; font-size: 35px; width: 500px;" >{{name.person}}</h3>
     <hr>
         <div>
+
             <a style="margin-left: 8%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle</a>
             <a style="margin-left: 75%" class = "btn btn-danger" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
         </div>
@@ -47,8 +48,10 @@
                     <td scope="row">{{data.serial}}</td>
                     <td scope="row">{{data.status}}</td>
                     <td scope="row">{{data.exp}}</td>
-                    <td><a href="/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
-                    <td><a href="/object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
+
+                    <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
+                    <td><a href=" /object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
+
                 </tr>
             {% endfor %}
     </table>
