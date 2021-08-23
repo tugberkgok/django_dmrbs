@@ -54,6 +54,7 @@ def addPerson(request):
         result = conn.cursor()
         result.execute(query)
         name = result.fetchone()
+        conn.close()
         try:
             if str(form["person"].value()) != str(name[0]):
                 form.save()
@@ -80,11 +81,22 @@ def addData(request):
 
 def objectEdit(request, id):
     data = Worker.objects.filter(id=id)
-    obje = get_object_or_404(Device, id=id)
-    form = DataForm(request.POST or None, request.FILES or None, instance=obje)
+    object = get_object_or_404(Device, id=id)
+    form = DataForm(request.POST or None, request.FILES or None, instance=object)
     if form.is_valid():
         form.save()
         messages.success(request, "Veri Kaydedildi")
-        return redirect(request, "objectEdit.html", {"name": data[0]} )
+        return redirect(request, "objectEdit.html", {"name": data[0]})
 
     return render(request, "objectEdit.html", {"form": form})
+
+def objectDelete(request, id):
+    object = Device.objects.filter(id=id)
+    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+    query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
+    result = conn.cursor()
+    result.execute(query)
+    pid = result.fetchone()
+    conn.close()
+    object.delete()
+    return redirect("/update/{}".format(pid[0]))

@@ -9,31 +9,24 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Update</title>
+    <title>Demirbaş Ekle</title>
 </head>
 <body>
     {% load crispy_forms_tags %}
-
-
-     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
+    <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
     </nav>
-
-  <div class="row">
-
-    <div class="col-md-6 offset-md-3">
-        <h3>Veri Ekle</h3>
-      <hr>
-      <form method="post">
-    {% csrf_token %}
-    {{form|crispy}}
-    <br>
-    <button type="submit" class=" btn btn-dark " > Ekle </button>
-    </form></div>
-
-     </div>
-     </div>
-
-
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Veri Ekle</h3>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <br>
+                <button type="submit" class=" btn btn-dark " > Ekle </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
