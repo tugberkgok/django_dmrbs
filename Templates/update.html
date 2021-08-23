@@ -15,12 +15,12 @@
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="/main">PiriReis Bilişim</a>
     </nav>
-    <h3 style="margin-left: 5%" >{{name.person}}</h3>
-
+    <h3 style="margin-left: 8%; font-size: 35px; width: 500px;" >{{name.person}}</h3>
     <hr>
         <div>
-            <a style="margin-left: 10%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle</a>
-            <a style="margin-left: 88%" class = "btn btn-dark" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
+
+            <a style="margin-left: 8%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle</a>
+            <a style="margin-left: 75%" class = "btn btn-danger" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
         </div>
     <hr>
     {% if datas %}
@@ -48,8 +48,9 @@
                     <td scope="row">{{data.serial}}</td>
                     <td scope="row">{{data.status}}</td>
                     <td scope="row">{{data.exp}}</td>
-                    <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark "> Güncelle </a></td>
-                    <td><a href=" /object/delete" class="btn btn-dark "> Sil </a></td>
+
+                    <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
+                    <td><a href=" /object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
                 </tr>
             {% endfor %}
     </table>
