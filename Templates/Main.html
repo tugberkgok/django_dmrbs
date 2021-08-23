@@ -42,7 +42,7 @@
     <hr style="width: 75%; margin-top: 2%">
     <hr style="width: 62.5%; margin-top: 2%">
     <hr style="width: 50%; margin-top: 2%">
-    <div style="margin-left: 65.8%; margin-top: 3%">
+    <div style="margin-left: 65.5%; margin-top: 3%">
         <a class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
     </div>
 
@@ -62,13 +62,12 @@
             <tbody>
                 {% for workers in veri %}
                     <tr>
-
                         <td scope="row"></td>
                         <td scope="row" style="width: 335px">{{workers.person}}</td>
                         <td scope="row"></td>
-                        <td style="padding-left: 21.2%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
-                        <td style="padding-left: 14.2%"><a href="/delete/{{workers.id}}" class="btn btn-dark">Sil</a></td>
-
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                        <td style="padding-left: 18%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,13 +1,6 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!doctype html>
-<html lang="en">
-<head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,69 +11,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Update</title>
 </head>
-
 <body>
-
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="/main">PiriReis Bilişim</a>
     </nav>
-    <h3 style="margin-left: 5%" >{{name.person}}</h3>
-
+    <h3 style="margin-left: 8%; font-size: 35px; width: 500px;" >{{name.person}}</h3>
     <hr>
-        <a style="margin-left: 87%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle </a>
+        <div>
+            <a style="margin-left: 8%" class = "btn btn-dark" href = "/addData" >Demirbaş Ekle</a>
+            <a style="margin-left: 75%" class = "btn btn-danger" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
+        </div>
     <hr>
     {% if datas %}
     <table class="table">
     <thead class="thead-dark">
-      <tr>
-        <th scope="col">Stok</th>
-        <th scope="col">Cihaz</th>
-        <th scope="col">Adet</th>
-        <th scope="col">Marka</th>
-        <th scope="col">Model</th>
-        <th scope="col">Seri No</th>
-        <th scope="col">Durum</th>
-        <th scope="col">Açıklama</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-      {% for data in datas %}
-         <tr>
-             <td scope="row">{{data.stok}}</td>
-             <td scope="row">{{data.device}}</td>
-             <td scope="row">{{data.number}}</td>
-             <td scope="row">{{data.brand}}</td>
-             <td scope="row">{{data.model}}</td>
-             <td scope="row">{{data.serial}}</td>
-             <td scope="row">{{data.status}}</td>
-             <td scope="row">{{data.exp}}</td>
-             <td><a href="/edit/{{data.id}}-{{name.id}}" class=" btn btn-dark "> Güncelle </a></td>
-             <td><a href="edit/{{data.id}}" class="btn btn-dark "> Sil </a></td>
-        </tr>
-
-      {% endfor %}
-
-
-
-
-     <tbody>
-
-    </tbody>
-   <table>
-
-  {% else %}
-
-    <div class=" alert alert-danger "> Kişiye ait bir veri bulunmuyor </div>
-
-  {% endif %}
-
-
-
-
-
-=======
         <thead class="thead-dark">
             <th scope="col">Stok</th>
             <th scope="col">Cihaz</th>
@@ -103,8 +47,8 @@
                     <td scope="row">{{data.serial}}</td>
                     <td scope="row">{{data.status}}</td>
                     <td scope="row">{{data.exp}}</td>
-                    <td><a href=" object/edit" class=" btn btn-dark "> Güncelle </a></td>
-                    <td><a href=" object/delete" class="btn btn-dark "> Sil </a></td>
+                    <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
+                    <td><a href=" /object/delete" class="btn btn-danger"> Sil </a></td>
                 </tr>
             {% endfor %}
     </table>
@@ -113,8 +57,5 @@
                 Herhangi bir demirbaş yok.
         </div>
     {% endif %}
->>>>>>> 2a4b3a64137b0949deecd42f0404fd03ab45685b
-</body>
-</html>
 </body>
 </html>

@@ -78,13 +78,13 @@ def addData(request):
     return render(request, "addData.html", {"form": form})
 
 
-def objectEdit(request, id, pid):
+def objectEdit(request, id):
     data = Worker.objects.filter(id=id)
     obje = get_object_or_404(Device, id=id)
     form = DataForm(request.POST or None, request.FILES or None, instance=obje)
     if form.is_valid():
         form.save()
         messages.success(request, "Veri Kaydedildi")
-        return redirect(request, "objectEdit.html", {"name" :person[0]} )
+        return redirect(request, "objectEdit.html", {"name": data[0]} )
 
     return render(request, "objectEdit.html", {"form": form})

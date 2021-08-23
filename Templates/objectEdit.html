@@ -14,31 +14,24 @@
 </head>
 <body>
     {% load crispy_forms_tags %}
-
-
-     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
+    <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="main">PiriReis Bilişim</a>
     </nav>
-
-  <div class="row">
-
-    <div class="col-md-6 offset-md-3">
-        <h3>Veri Güncelle</h3>
-      <hr>
-      <form method="post" id="myForm">
-    {% csrf_token %}
-    {{form|crispy}}
-    <br>
-    {% for workers in veri %}
-    <!---<button type="submit" class=" btn btn-dark " > Ekle </button>--->
-    <a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a>
-    {% endfor %}
-    
- 
-    </form></div>
-
-     </div>
-     </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Veri Güncelle</h3>
+            <hr>
+            <form method="post" id="myForm">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+            {% for workers in veri %}
+            <!---<button type="submit" class=" btn btn-dark " > Ekle </button>--->
+            <a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a>
+            {% endfor %}
+            </form>
+        </div>
+    </div>
      <script>
          let url = window.location.href;
          let urlPiece = url.split('/');
@@ -46,8 +39,6 @@
          let pid = pieces.split('-')[1];
          let form = document.getElementById('myForm');
          form.action = "/update/" + parseInt(pid);
-
      </script>
-
 </body>
 </html>
