@@ -40,18 +40,55 @@
         </thead>
             {% for data in datas %}
                 <tr>
+                    {% if data.stok %}
                     <td scope="row">{{data.stok}}</td>
-                    <td scope="row">{{data.device}}</td>
-                    <td scope="row">{{data.number}}</td>
-                    <td scope="row">{{data.brand}}</td>
-                    <td scope="row">{{data.model}}</td>
-                    <td scope="row">{{data.serial}}</td>
-                    <td scope="row">{{data.status}}</td>
-                    <td scope="row">{{data.exp}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
 
+                    {% if data.device %}
+                    <td scope="row">{{data.device}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.number %}
+                    <td scope="row">{{data.number}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.brand %}
+                    <td scope="row">{{data.brand}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.model %}
+                    <td scope="row">{{data.model}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.serial %}
+                    <td scope="row">{{data.serial}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.status %}
+                    <td scope="row">{{data.status}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
+
+                    {% if data.exp %}
+                    <td scope="row">{{data.exp}}</td>
+                    {% else %}
+                    <td scope="row"></td>
+                    {% endif %}
                     <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
                     <td><a href=" /object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
-
                 </tr>
             {% endfor %}
     </table>
