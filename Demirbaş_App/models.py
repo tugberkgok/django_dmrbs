@@ -18,7 +18,6 @@ class Device(models.Model):
     serial = models.CharField(max_length=50, null=True, blank=True, verbose_name="Seri No")
     status = models.CharField(max_length=50, null=True, blank=True, verbose_name="Durumu")
     exp = models.CharField(max_length=100, null=True, blank=True, verbose_name="Açıklama")
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Kayıt Tarihi")
 
     def __str__(self):
         return str(self.person_id)

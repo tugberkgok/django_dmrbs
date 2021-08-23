@@ -28,9 +28,5 @@ urlpatterns = [
     path('addData/<int:id>', views.addData, name="addData"),
     path('addPerson', views.addPerson, name="addPerson"),
     path('object/edit/<int:id>', views.objectEdit, name="objectEdit"),
-<<<<<<< HEAD
-    path('edit/<int:id>', views.objectEdit, name="objectEdit"),
-=======
->>>>>>> 91e7ce1f1cf29e8463f60fee24313000f86d5799
     path('object/delete/<int:id>', views.objectDelete, name="objectEdit")
 ]

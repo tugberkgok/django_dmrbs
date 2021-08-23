@@ -1,5 +1,4 @@
 import sqlite3
-import datetime
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
@@ -58,7 +57,7 @@ def logoutUser(request):
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
-        conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
+        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
         query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(str(form["person"].value()))
         result = conn.cursor()
         result.execute(query)
@@ -88,11 +87,9 @@ def addData(request, id):
         result = conn.cursor()
         result.execute(query1)
         pid = result.fetchone()
-        today = datetime.datetime.now()
-        date = today.strftime("%m/%d/%Y, %H:%M:%S")
-        query2 = "INSERT INTO Demirbaş_App_device (stok, device, number, brand, model, serial, status, exp, created_date, person_id_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
+        query2 = "INSERT INTO Demirbaş_App_device (stok, device, number, brand, model, serial, status, exp, person_id_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
                 .format(str(form["stok"].value()), str(form["device"].value()), str(form["number"].value()), str(form["brand"].value()), str(form["model"].value()),
-                        str(form["serial"].value()), str(form["status"].value()), str(form["exp"].value()), str(date), pid[0])
+                        str(form["serial"].value()), str(form["status"].value()), str(form["exp"].value()), pid[0])
         c = conn.cursor()
         c.execute(query2)
         conn.commit()
@@ -119,7 +116,7 @@ def objectEdit(request, id):
 
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
-    conn = sqlite3.connect('C:/Users/Tuğberk/PycharmProjects/Project_Django_0.3/django_dmrbs/db.sqlite3')
+    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
     result = conn.cursor()
     result.execute(query)
