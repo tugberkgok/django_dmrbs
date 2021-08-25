@@ -13,14 +13,66 @@ import json
 def Main(request):
 
     keyword = request.GET.get("keyword")
+    key = request.GET.get("key")
+    if key:
+        stok = Device.objects.filter(stok__contains=key)
+        device = Device.objects.filter(device__contains=key)
+        brand = Device.objects.filter(brand__contains=key)
+        model = Device.objects.filter(model__contains=key)
+        serial = Device.objects.filter(serial__contains=key)
+        status = Device.objects.filter(status__contains=key)
+        exp = Device.objects.filter(exp__contains=key)
+        liste = []
+        if stok:
+            for idx in stok:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif device:
+            for idx in device:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif brand:
+            for idx in brand:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif model:
+            for idx in model:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif serial:
+            for idx in serial:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif status:
+            for idx in status:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        elif exp:
+            for idx in exp:
+                datas = Worker.objects.filter(person=idx)
+                liste.append(datas[0])
+            return render(request, "Main.html", {"veri": liste})
+        #datas = Worker.objects.filter(person=data[0])
+
+        #return render(request, "Main.html", {"veri": datas})
+        return redirect("main")
 
     if keyword:
-        data = Worker.objects.filter(person__contains = keyword)
+        data = Worker.objects.filter(person__contains=keyword)
         return render(request, "Main.html", {"veri": data})
     data = Worker.objects.all()
     return render(request, "Main.html", {"veri": data})
+def search(request):
+    pass
 
-@login_required(login_url = 'login')
+
+@login_required(login_url='login')
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
     person = Worker.objects.filter(id=id)
@@ -59,7 +111,7 @@ def logoutUser(request):
 def addPerson(request):
     form = WorkerName(request.POST or None)
     if form.is_valid():
-        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        conn = sqlite3.connect('db.sqlite3')
         query = "SELECT person FROM Demirbaş_App_worker WHERE person = '{}'".format(str(form["person"].value()))
         result = conn.cursor()
         result.execute(query)
@@ -85,7 +137,7 @@ def addData(request, id):
     person = Worker.objects.filter(id=id)
     form = DataForm(request.POST or None)
     if form.is_valid():
-        conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+        conn = sqlite3.connect('db.sqlite3')
         query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
         result = conn.cursor()
         result.execute(query1)
@@ -105,11 +157,11 @@ def addData(request, id):
 @login_required(login_url = 'login')
 def objectEdit(request, id):
     datas = Device.objects.filter(id=id)
-    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+    conn = sqlite3.connect('db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(datas[0])
     result = conn.cursor()
     result.execute(query)
-    pid= result.fetchone()
+    pid = result.fetchone()
     conn.close()
     form = DataForm(request.POST or None, request.FILES or None, instance=get_object_or_404(Device, id=id))
     if form.is_valid():
@@ -121,7 +173,7 @@ def objectEdit(request, id):
 @login_required(login_url = 'login')
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
-    conn = sqlite3.connect('D:/C den/Masaüstü/Çalışma/Py/Demirbaş Web/Demirbaş_Web/db.sqlite3')
+    conn = sqlite3.connect('db.sqlite3')
     query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
     result = conn.cursor()
     result.execute(query)
