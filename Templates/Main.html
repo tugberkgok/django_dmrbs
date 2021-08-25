@@ -22,7 +22,7 @@
         <ul class="navbar-nav mr-auto">
             <div style="padding-top: 6%">
                 {%if request.user.is_authenticated %}
-                <p style="color:#ffffff; font-size: 20px; margin-top: 3.5%" >Hoşgeldin {{request.user.username}}<span class="sr-only">(current)</span></p>
+                <p style="color:#ffffff; font-size: 20px; margin-top: 1.5%" >Hoşgeldiniz {{request.user.username}}<span class="sr-only">(current)</span></p>
                 {% else %}
                 {% endif %}
             </div>
@@ -44,14 +44,16 @@
     <hr style="width: 50%; margin-top: 2%">
     <div style="margin-top: 3%">
         <form>
-            <input style="margin-left: 25%; width: 350px;" type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Ara...">
+            <input style="margin-left: 20% ; width: 200px;" type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Kişi Ara ...">
             <button type="submit" class="btn btn-dark">Ara</button>
-            <a style="margin-left: 14%" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
+            <input style="margin-left: 7%; margin-top: 2% ;width: 200px;" type="text" name="key" class="input-sm" maxlength="64" placeholder="Demirbaş Ara ...">
+            <button type="submit" class="btn btn-dark">Ara</button>
+            <a style="margin-left: 8%" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
         </form>
 
     </div>
     {% if veri %}
-        <table style="display-border-box; width:50%; margin-left: 25%; margin-right: 25%; margin-top: 1%" class="table">
+        <table style="display-border-box; width:59%; margin-left: 20%; margin-right: 21%; margin-top: 1%" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col"></th>
@@ -66,7 +68,7 @@
                 {% for workers in veri %}
                     <tr>
                         <td scope="row"></td>
-                        <td scope="row" style="width: 335px">{{workers.person}}</td>
+                        <td scope="row" style="width: 335px">{{workers}}</td>
                         <td scope="row"></td>
                         <td scope="row"></td>
                         <td scope="row"></td>
@@ -80,7 +82,5 @@
             Herhangi bir veriniz yok.
         </div>
     {% endif %}
-        <p>
-        </p>
 </body>
 </html>
