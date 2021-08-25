@@ -1,11 +1,13 @@
+import os
 import sqlite3
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from xlsxwriter.workbook import Workbook
+
 from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import json
 
 # Create your views here.
 
@@ -91,16 +93,16 @@ def delete(request, id):
 
 def loginUser(request):
     form = LoginForm(request.POST or None)
-    context = {"form": form}
     if form.is_valid():
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         user = authenticate(username=username, password=password)
         if user is None:
-            return render(request, "login.html", context)
+            fail = 1
+            return render(request, "login.html", {"form": form, "fail": fail})
         login(request, user)
         return redirect("main")
-    return render(request, "login.html", context)
+    return render(request, "login.html", {"form": form})
 
 
 def logoutUser(request):
@@ -180,4 +182,48 @@ def objectDelete(request, id):
     pid = result.fetchone()
     conn.close()
     object.delete()
+    return redirect("/update/{}".format(pid[0]))
+
+def excel(request, id):
+    person = Worker.objects.filter(id=id)
+    conn = sqlite3.connect('db.sqlite3')
+    query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
+    result1 = conn.cursor()
+    result1.execute(query1)
+    pid = result1.fetchone()
+    query2 = "SELECT stok, device, number, brand, model, serial, status, exp FROM Demirbaş_App_device WHERE person_id_id = '{}'".format(pid[0])
+    result2 = conn.cursor()
+    result2.execute(query2)
+    data = result2.fetchall()
+    workbook = Workbook(os.path.join(os.path.join(os.environ['USERPROFILE'])) + "\\Desktop\\{}.xlsx".format(person[0]))
+    worksheet = workbook.add_worksheet()
+    cell_format1 = workbook.add_format({'bold': True, 'italic': False})
+
+    worksheet.write('A1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
+    worksheet.write('A3', 'STOK', cell_format1)
+    worksheet.write('B3', 'CİHAZ', cell_format1)
+    worksheet.write('C3', 'SAYI', cell_format1)
+    worksheet.write('D3', 'MARKA', cell_format1)
+    worksheet.write('E3', 'MODEL', cell_format1)
+    worksheet.write('F3', 'SERİ NO', cell_format1)
+    worksheet.write('G3', 'DURUMU', cell_format1)
+    worksheet.write('H3', 'AÇIKLAMA', cell_format1)
+    row = 0
+    cell = 0
+    for row, veri in enumerate(data):
+        for cell, value in enumerate(veri):
+            print(value)
+            if str(value) == "None":
+                worksheet.write(row + 3, cell -1, value)
+            else:
+                worksheet.write(row + 3, cell, value)
+    cell = 0
+    row = row + 5
+    worksheet.write(row, cell, "Yukarıda listelenen .......... malzemeyi sağlam olarak teslim aldım", cell_format1)
+    worksheet.write(row + 1, cell, "Tesliim Alan: ", cell_format1)
+    worksheet.write(row + 1, cell + 4, "Tesliim Eden: ", cell_format1)
+    worksheet.write(row + 2, cell, "İmzası: ", cell_format1)
+    worksheet.write(row + 2, cell + 4, "İmzası: ", cell_format1)
+    workbook.close()
+    conn.close()
     return redirect("/update/{}".format(pid[0]))
