@@ -197,6 +197,14 @@ def excel(request, id):
     data = result2.fetchall()
     workbook = Workbook(os.path.join(os.path.join(os.environ['USERPROFILE'])) + "\\Desktop\\{}.xlsx".format(person[0]))
     worksheet = workbook.add_worksheet()
+    worksheet.set_column(
+        "C:C", 5
+
+    )
+    worksheet.set_column(
+        "F:F",
+        30
+    )
     cell_format1 = workbook.add_format({'bold': True, 'italic': False})
 
     worksheet.write('A1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
