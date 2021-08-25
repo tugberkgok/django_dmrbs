@@ -22,13 +22,13 @@
         <ul class="navbar-nav mr-auto">
             <div style="padding-top: 6%">
                 {%if request.user.is_authenticated %}
-                <p style="color:#ffffff; font-size: 20px; margin-top: 3.5%" >Hoşgeldiniz {{request.user.username}}<span class="sr-only">(current)</span></p>
+                <p style="color:#ffffff; font-size: 20px; margin-top: 3.5%" >Hoşgeldin {{request.user.username}}<span class="sr-only">(current)</span></p>
                 {% else %}
                 {% endif %}
             </div>
             <div>
                 <li class="nav-item">
-                    <a style ="color:#ffffff; margin-top:7%; margin-left: 1600%" class="nav-link disabled" href="logout">Çıkış Yap</a>
+                    <a style ="color:#ffffff; margin-top:7%; margin-left: 1400%" class="nav-link disabled" href="logout">Çıkış Yap</a>
                 </li>
             </div>
         </ul>
@@ -46,7 +46,7 @@
         <form>
             <input style="margin-left: 25%; width: 350px;" type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Ara...">
             <button type="submit" class="btn btn-dark">Ara</button>
-            <a style="margin-left: 17.5%" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
+            <a style="margin-left: 14%" class="btn btn-dark" href="addPerson">Yeni Kişi Oluştur</a>
         </form>
 
     </div>
@@ -70,14 +70,14 @@
                         <td scope="row"></td>
                         <td scope="row"></td>
                         <td scope="row"></td>
-                        <td style="padding-left: 20%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
+                        <td style="padding-left: 17%"><a href="/update/{{workers.id}}" class="btn btn-dark">Düzenle</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger" style = "margin-top: 20px">
-            herhangi bir veriniz yok.
+        <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger">
+            Herhangi bir veriniz yok.
         </div>
     {% endif %}
         <p>

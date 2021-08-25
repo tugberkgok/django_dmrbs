@@ -15,12 +15,12 @@
     <nav style =" height: 80px ; font-size: '50px' ;"  class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="/main">PiriReis Bilişim</a>
     </nav>
-    <h3 style="margin-left: 8%; font-size: 35px; width: 500px;" >{{name.person}}</h3>
+        <h3 style="margin-left: 8%; font-size: 35px; width: 500px;" >{{name.person}}</h3>
     <hr>
         <div>
-
             <a style="margin-left: 8%" class = "btn btn-dark" href = "/addData/{{name.id}}" >Demirbaş Ekle</a>
-            <a style="margin-left: 75%" class = "btn btn-danger" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
+            <a style="margin-left: 2%" class = "btn btn-success" href = "/person/excel/{{name.id}}" >Excel'e Çıkart</a>
+            <a style="margin-left: 61.5%" class = "btn btn-danger" href = "/delete/{{name.id}}" >Kişiyi Kaldır</a>
         </div>
     <hr>
     {% if datas %}
@@ -29,7 +29,7 @@
         <thead class="thead-dark">
             <th scope="col">Stok</th>
             <th scope="col">Cihaz</th>
-            <th scope="col">Adet</th>
+            <th scope="col">Sayı</th>
             <th scope="col">Marka</th>
             <th scope="col">Model</th>
             <th scope="col">Seri No</th>

@@ -28,5 +28,6 @@ urlpatterns = [
     path('addData/<int:id>', views.addData, name="addData"),
     path('addPerson', views.addPerson, name="addPerson"),
     path('object/edit/<int:id>', views.objectEdit, name="objectEdit"),
-    path('object/delete/<int:id>', views.objectDelete, name="objectEdit")
+    path('object/delete/<int:id>', views.objectDelete, name="objectEdit"),
+    path('person/excel/<int:id>', views.excel, name="excel")
 ]
