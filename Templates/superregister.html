@@ -14,16 +14,16 @@
         <a style ="font-family: 'Prata', serif ; " class="navbar-brand" href="/main">Demirbaş Sorgu</a>
     </nav>
         <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h3>Hesap Aç</h3>
-            <hr>
-            <form method="post">
-                {% csrf_token %}
-                {{form|crispy}}
-                <br>
-                <button type="submit" class=" btn btn-dark " > Onayla </button>
-            </form>
-        </div>
+            <div class="col-md-6 offset-md-3">
+                <h3>Kayıt Ol</h3>
+                <hr>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <br>
+                        <button  type="submit" class=" btn btn-dark " > Kayıt Ol </button>
+                    </form>
+            </div>
         </div>
 
 </body>
