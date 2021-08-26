@@ -7,6 +7,7 @@ from .models import Worker, Device
 from .forms import RegisterForm, LoginForm, DataForm, WorkerName
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 # Create your views here.
@@ -252,3 +253,19 @@ def dropdown(request, id, pid):
 
     return redirect("/update/30")
 
+def register(request):
+    form = RegisterForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        key = form.cleaned_data.get("special_key")
+
+        newUser = User(username=username)
+        newUser.set_password(password)
+
+        newUser.save()
+
+        return redirect("login")
+
+    context = {"form": form}    
+    return render(request, "register.html", context)

@@ -30,5 +30,8 @@ urlpatterns = [
     path('object/edit/<int:id>', views.objectEdit, name="objectEdit"),
     path('object/delete/<int:id>', views.objectDelete, name="objectEdit"),
     path('person/excel/<int:id>', views.excel, name="excel"),
-    path('dropdown/<int:id>-<int:pid>', views.dropdown, name="dropdown")
+    path('dropdown/<int:id>-<int:pid>', views.dropdown, name="dropdown"),
+    #path('adminpassword', views.adminpassword, name="adminpassword"),
+    path('register', views.register, name="register"),
+
 ]
