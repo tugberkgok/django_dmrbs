@@ -73,16 +73,19 @@ def Main(request):
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
     person = Worker.objects.filter(id=id)
-    fik = Device.objects.all()
+    superuser = Worker.objects.filter(superuser=True)
+    devices = Device.objects.all()
     workers = Worker.objects.all()
-    if str(person[0]) == "Fikret Bayraktar":
-        return render(request, "update.html", {"datas": fik, "name": person[0], "workers": workers})
+    super = 1
+    if person[0] in superuser:
+        return render(request, "update.html", {"datas": devices, "name": person[0], "workers": workers, "super": super})
     else:
         try:
             if datas[0] != " ":
                 return render(request, "update.html", {"datas": datas, "name": person[0]})
         except:
             return render(request, "update.html", {"name": person[0]})
+
 
 @login_required(login_url = 'login')
 def delete(request, id):
