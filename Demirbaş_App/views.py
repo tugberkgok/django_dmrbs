@@ -13,7 +13,7 @@ from django.contrib import messages
 
 @login_required(login_url = 'login')
 def Main(request):
-
+    data = Worker.objects.all()
     keyword = request.GET.get("keyword")
     key = request.GET.get("key")
     if key:
@@ -60,29 +60,28 @@ def Main(request):
                 datas = Worker.objects.filter(person=idx)
                 liste.append(datas[0])
             return render(request, "Main.html", {"veri": liste})
-        #datas = Worker.objects.filter(person=data[0])
 
-        #return render(request, "Main.html", {"veri": datas})
         return redirect("main")
 
     if keyword:
         data = Worker.objects.filter(person__contains=keyword)
         return render(request, "Main.html", {"veri": data})
-    data = Worker.objects.all()
-    return render(request, "Main.html", {"veri": data})
-def search(request):
-    pass
 
+    return render(request, "Main.html", {"veri": data})
 
 @login_required(login_url='login')
 def update(request, id):
     datas = Device.objects.filter(person_id=id)
     person = Worker.objects.filter(id=id)
-    try:
-        if datas[0] != " ":
-            return render(request, "update.html", {"datas": datas, "name": person[0]})
-    except:
-        return render(request, "update.html", {"name": person[0]})
+    fik = Device.objects.all()
+    if str(person[0]) == "Fikret Bayraktar":
+        return render(request, "update.html", {"datas": fik, "name": person[0]})
+    else:
+        try:
+            if datas[0] != " ":
+                return render(request, "update.html", {"datas": datas, "name": person[0]})
+        except:
+            return render(request, "update.html", {"name": person[0]})
 
 @login_required(login_url = 'login')
 def delete(request, id):
@@ -197,6 +196,14 @@ def excel(request, id):
     data = result2.fetchall()
     workbook = Workbook(os.path.join(os.path.join(os.environ['USERPROFILE'])) + "\\Desktop\\{}.xlsx".format(person[0]))
     worksheet = workbook.add_worksheet()
+    worksheet.set_column(
+        "C:C", 5
+
+    )
+    worksheet.set_column(
+        "F:F",
+        30
+    )
     cell_format1 = workbook.add_format({'bold': True, 'italic': False})
 
     worksheet.write('A1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
