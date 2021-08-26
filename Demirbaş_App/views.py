@@ -235,3 +235,20 @@ def excel(request, id):
     workbook.close()
     conn.close()
     return redirect("/update/{}".format(pid[0]))
+
+def dropdown(request, id, pid):
+    person = Worker.objects.filter(id=pid)
+
+    conn = sqlite3.connect('db.sqlite3')
+    query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
+    result1 = conn.cursor()
+    result1.execute(query1)
+    data = result1.fetchone()
+    cursor = conn.cursor()
+    query2 = "UPDATE Demirbaş_App_device SET person_id_id = '{}' WHERE id = {}".format(data[0], id)
+    cursor.execute(query2)
+    conn.commit()
+    conn.close()
+
+    return redirect("/update/30")
+
