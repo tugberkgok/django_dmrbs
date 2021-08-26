@@ -211,7 +211,7 @@ def excel(request, id):
     )
     cell_format1 = workbook.add_format({'bold': True, 'italic': False})
 
-    worksheet.write('A1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
+    worksheet.write('D1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
     worksheet.write('A3', 'STOK', cell_format1)
     worksheet.write('B3', 'CİHAZ', cell_format1)
     worksheet.write('C3', 'SAYI', cell_format1)
@@ -230,12 +230,13 @@ def excel(request, id):
             else:
                 worksheet.write(row + 3, cell, value)
     cell = 0
-    row = row + 5
+    row = row + 7
     worksheet.write(row, cell, "Yukarıda listelenen .......... malzemeyi sağlam olarak teslim aldım", cell_format1)
     worksheet.write(row + 1, cell, "Tesliim Alan: ", cell_format1)
     worksheet.write(row + 1, cell + 4, "Tesliim Eden: ", cell_format1)
     worksheet.write(row + 2, cell, "İmzası: ", cell_format1)
     worksheet.write(row + 2, cell + 4, "İmzası: ", cell_format1)
+    worksheet.write(row + 3, cell, "Tarih:", cell_format1)
     workbook.close()
     conn.close()
     return redirect("/update/{}".format(pid[0]))
