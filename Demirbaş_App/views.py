@@ -264,6 +264,8 @@ def register(request):
         password = form.cleaned_data.get("password")
         key = form.cleaned_data.get("special_key")
 
+        
+
         newUser = User(username=username)
         newUser.set_password(password)
 
@@ -273,3 +275,25 @@ def register(request):
 
     context = {"form": form}    
     return render(request, "register.html", context)
+
+
+def superregister(request):
+    form = RegisterForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        key = form.cleaned_data.get("special_key")
+
+        newUser = User(username=username)
+        newUser.set_password(password)
+
+        #newUser.save()
+        conn = sqlite3.connect('db.sqlite3')
+        query = "INSERT INTO Demirbaş_App_worker (person, superuser) VALUES ('{}', {})".format(username, 1)
+        c = conn.cursor()
+        c.execute(query)
+
+        return redirect("login")
+
+    context = {"form": form}
+    return render(request, "superregister.html", context)

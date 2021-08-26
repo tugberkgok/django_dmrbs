@@ -1,6 +1,7 @@
 from django import forms
 from .models import Worker, Device
 
+
 class LoginForm (forms.Form):
     username = forms.CharField(label= "Kullanıcı Adı")
     password = forms.CharField(label= "Parola", widget= forms.PasswordInput)
@@ -23,8 +24,10 @@ class RegisterForm(forms.Form):
         if password and confirm and password != confirm:
             raise forms.ValidationError("Parolalar Eşleşmiyor")
 
+
         if special_key != "piriadmin":
             raise forms.ValidationError("Kullanıcı Açmaya Yetkiniz Yok")
+
 
         values = {"username": username, "password": password}
         return values
