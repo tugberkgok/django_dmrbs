@@ -87,8 +87,23 @@
                     {% else %}
                     <td scope="row"></td>
                     {% endif %}
+                    {% if name.id == 30 %}
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-mini">Tahsis ET</button>
+                            <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                            </ul>
+                        </div>
+                    </td>
+                    {% else %}
+                    {% endif %}
                     <td><a href=" /object/edit/{{data.id}}" class=" btn btn-dark"> Güncelle </a></td>
                     <td><a href=" /object/delete/{{data.id}}" class="btn btn-danger"> Sil </a></td>
+
                 </tr>
             {% endfor %}
     </table>
