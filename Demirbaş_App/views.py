@@ -74,8 +74,9 @@ def update(request, id):
     datas = Device.objects.filter(person_id=id)
     person = Worker.objects.filter(id=id)
     fik = Device.objects.all()
+    workers = Worker.objects.all()
     if str(person[0]) == "Fikret Bayraktar":
-        return render(request, "update.html", {"datas": fik, "name": person[0]})
+        return render(request, "update.html", {"datas": fik, "name": person[0], "workers": workers})
     else:
         try:
             if datas[0] != " ":
