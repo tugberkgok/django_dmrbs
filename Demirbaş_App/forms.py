@@ -3,8 +3,8 @@ from .models import Worker, Device
 
 
 class LoginForm (forms.Form):
-    username = forms.CharField(label= "Kullanıcı Adı")
-    password = forms.CharField(label= "Parola", widget= forms.PasswordInput)
+    username = forms.CharField(label="Kullanıcı Adı")
+    password = forms.CharField(label="Parola", widget=forms.PasswordInput)
 
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=50, label="Kullanıcı adı")
