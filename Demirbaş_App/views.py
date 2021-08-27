@@ -138,6 +138,11 @@ def addPerson(request):
     else:
         return render(request, "addPerson.html", {"form": form})
 
+def allData(request):
+    datas = Device.objects.all()
+    workers = Worker.objects.all()
+    super = 1
+    return render(request, "all.html", {"datas": datas, "workers": workers, "super": super})
 
 @login_required(login_url = 'login')
 def addData(request, id):
@@ -180,14 +185,31 @@ def objectEdit(request, id):
 @login_required(login_url = 'login')
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
+    sayman = Worker.objects.filter(superuser=1)
+
     conn = sqlite3.connect('db.sqlite3')
-    query = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
-    result = conn.cursor()
-    result.execute(query)
-    pid = result.fetchone()
-    conn.close()
-    object.delete()
-    return redirect("/update/{}".format(pid[0]))
+    query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(sayman[0])
+    result1 = conn.cursor()
+    result1.execute(query1)
+    sid = result1.fetchone()
+    query2 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(object[0])
+    result2 = conn.cursor()
+    result2.execute(query2)
+    pid = result2.fetchone()
+
+    if str(object[0]) == str(sayman[0]):
+        print("obje siliniyor")
+        conn.close()
+        return redirect("/update/{}".format(sid[0]))
+    else:
+        cursor = conn.cursor()
+        query3 = "UPDATE Demirbaş_App_device SET person_id_id = '{}' WHERE person_id_id = '{}'".format(sid[0], pid[0])
+        cursor.execute(query3)
+        conn.commit()
+        conn.close()
+        return redirect("/update/{}".format(pid[0]))
+    #object.delete()
+
 
 def excelwrite(request, id):
     person = Worker.objects.filter(id=id)
@@ -213,7 +235,7 @@ def excelwrite(request, id):
     cell_format1 = workbook.add_format({'bold': True, 'italic': False})
 
     worksheet.write('D1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
-    worksheet.write('A3', 'ID')
+    worksheet.write('A3', 'S.NO', cell_format1)
     worksheet.write('B3', 'STOK', cell_format1)
     worksheet.write('C3', 'CİHAZ', cell_format1)
     worksheet.write('D3', 'SAYI', cell_format1)
@@ -237,12 +259,13 @@ def excelwrite(request, id):
         id += 1
     cell = 0
     row = row + 7
-    worksheet.write(row, cell, "Yukarıda listelenen .......... malzemeyi sağlam olarak teslim aldım", cell_format1)
+    worksheet.write(row, cell, "Yukarıda listelenen .......... kalem malzemeyi sağlam olarak teslim aldım.", cell_format1)
     worksheet.write(row + 2, cell, "Tesliim Alan: ", cell_format1)
     worksheet.write(row + 2, cell + 4, "Tesliim Eden: ", cell_format1)
     worksheet.write(row + 3, cell, "İmzası: ", cell_format1)
     worksheet.write(row + 3, cell + 4, "İmzası: ", cell_format1)
     worksheet.write(row + 4, cell, "Tarih:", cell_format1)
+    worksheet.write(row + 4, cell + 4, "Tarih:", cell_format1)
     workbook.close()
     conn.close()
     return redirect("/update/{}".format(pid[0]))
@@ -272,8 +295,13 @@ def excelread(request ,id):
 """
 def dropdown(request, id, pid):
     person = Worker.objects.filter(id=pid)
+    mainperson = Worker.objects.filter(superuser=1)
 
     conn = sqlite3.connect('db.sqlite3')
+    query3 =  "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(mainperson[0])
+    result3 = conn.cursor()
+    result3.execute(query3)
+    adam = result3.fetchone()
     query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
     result1 = conn.cursor()
     result1.execute(query1)
@@ -284,7 +312,7 @@ def dropdown(request, id, pid):
     conn.commit()
     conn.close()
 
-    return redirect("/update/30")
+    return redirect("/update/{}".format(adam[0]))
 
 def register(request):
     form = RegisterForm(request.POST or None)

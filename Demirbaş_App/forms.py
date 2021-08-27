@@ -37,7 +37,7 @@ class RegisterForm(forms.Form):
 class DataForm(forms.ModelForm):
     class Meta:
         model = Device
-        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp"]
+        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp", "take_date", "zim_date"]
 
 
 
@@ -45,3 +45,5 @@ class WorkerName(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ["person"]
+
+

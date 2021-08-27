@@ -26,6 +26,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="lagout"),
     path('update/logout', views.logoutUser, name="lagout"),
     path('addData/logout', views.logoutUser, name="lagout"),
+    path('allData', views.allData, name="allData"),
     #path('update/main', views.Main, name="main"),
     #path('addData/main', views.Main, name="main"),
     path('update/<str:id>', views.update, name="update"),
