@@ -13,12 +13,14 @@
       {% csrf_token %}
       {{form|crispy}}
       <br>
-        <div>
-          <button type="submit" class=" btn btn-dark " > Giriş Yap </button>
-          <a style="margin-left: 68%" class="btn btn-dark" href="register">Kayıt Ol</a>
-          <a style="margin-left: 40%; margin-bottom:5%" class="btn btn-dark" href="superregister">Yeni Sayman Hesabı</a>
-        </div>
+      
       </form>
+      <div>
+            <button type="submit" class=" btn btn-dark " > Giriş Yap </button>
+            <a style="margin-left: 30%;" class="btn btn-dark" href="register">Yeni Hesap</a>
+            <a  style="margin-left: 1%;" class="btn btn-dark" href="superregister">Yeni Sayman Hesabı</a>
+      </div>
+     
       {% if fail %}
         <div style="display-border-box; width:50%; margin-top: 5%; margin-left: 25%; margin-right: 25%;" class="alert alert-danger">
             Yanlış kullanıcı adı veya şifre
