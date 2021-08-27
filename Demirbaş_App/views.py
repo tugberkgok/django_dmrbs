@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import xlrd
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from xlsxwriter.workbook import Workbook
 
@@ -188,7 +189,7 @@ def objectDelete(request, id):
     object.delete()
     return redirect("/update/{}".format(pid[0]))
 
-def excel(request, id):
+def excelwrite(request, id):
     person = Worker.objects.filter(id=id)
     conn = sqlite3.connect('db.sqlite3')
     query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
@@ -202,44 +203,71 @@ def excel(request, id):
     workbook = Workbook(os.path.join(os.path.join(os.environ['USERPROFILE'])) + "\\Desktop\\{}.xlsx".format(person[0]))
     worksheet = workbook.add_worksheet()
     worksheet.set_column(
-        "C:C", 5
+        "D:D", 5
 
     )
     worksheet.set_column(
-        "F:F",
+        "G:G",
         30
     )
     cell_format1 = workbook.add_format({'bold': True, 'italic': False})
 
     worksheet.write('D1', 'DEMİRBAŞ ENVANTER LİSTESİ', cell_format1)
-    worksheet.write('A3', 'STOK', cell_format1)
-    worksheet.write('B3', 'CİHAZ', cell_format1)
-    worksheet.write('C3', 'SAYI', cell_format1)
-    worksheet.write('D3', 'MARKA', cell_format1)
-    worksheet.write('E3', 'MODEL', cell_format1)
-    worksheet.write('F3', 'SERİ NO', cell_format1)
-    worksheet.write('G3', 'DURUMU', cell_format1)
-    worksheet.write('H3', 'AÇIKLAMA', cell_format1)
+    worksheet.write('A3', 'ID')
+    worksheet.write('B3', 'STOK', cell_format1)
+    worksheet.write('C3', 'CİHAZ', cell_format1)
+    worksheet.write('D3', 'SAYI', cell_format1)
+    worksheet.write('E3', 'MARKA', cell_format1)
+    worksheet.write('F3', 'MODEL', cell_format1)
+    worksheet.write('G3', 'SERİ NO', cell_format1)
+    worksheet.write('H3', 'DURUMU', cell_format1)
+    worksheet.write('I3', 'AÇIKLAMA', cell_format1)
     row = 0
     cell = 0
+    id = 1
     for row, veri in enumerate(data):
         for cell, value in enumerate(veri):
             print(value)
             if str(value) == "None":
-                worksheet.write(row + 3, cell -1, value)
-            else:
+                worksheet.write(row + 3, 0, id)
                 worksheet.write(row + 3, cell, value)
+            else:
+                worksheet.write(row + 3, 0, id)
+                worksheet.write(row + 3, cell + 1, value)
+        id += 1
     cell = 0
     row = row + 7
     worksheet.write(row, cell, "Yukarıda listelenen .......... malzemeyi sağlam olarak teslim aldım", cell_format1)
-    worksheet.write(row + 1, cell, "Tesliim Alan: ", cell_format1)
-    worksheet.write(row + 1, cell + 4, "Tesliim Eden: ", cell_format1)
-    worksheet.write(row + 2, cell, "İmzası: ", cell_format1)
-    worksheet.write(row + 2, cell + 4, "İmzası: ", cell_format1)
-    worksheet.write(row + 3, cell, "Tarih:", cell_format1)
+    worksheet.write(row + 2, cell, "Tesliim Alan: ", cell_format1)
+    worksheet.write(row + 2, cell + 4, "Tesliim Eden: ", cell_format1)
+    worksheet.write(row + 3, cell, "İmzası: ", cell_format1)
+    worksheet.write(row + 3, cell + 4, "İmzası: ", cell_format1)
+    worksheet.write(row + 4, cell, "Tarih:", cell_format1)
     workbook.close()
     conn.close()
     return redirect("/update/{}".format(pid[0]))
+
+def excelread(request ,id):
+    location = ("C:/Users/Mert/Desktop/Örnek_Excel.xlsx")
+    workbook = xlrd.open_workbook(location)
+    sheet = workbook.sheet_by_index(0)
+    maxCell = 8
+    table = []
+    row = 1
+    cell = 0
+    try:
+        while sheet.cell_value(row, 0) != "":
+            rows = []
+            for cell in range(maxCell):
+                data = sheet.cell_value(row, cell+1)
+                rows.append(data)
+            table.append(rows)
+            row += 1
+    except:
+        pass
+
+    print(table)
+    return redirect("main")
 
 def dropdown(request, id, pid):
     person = Worker.objects.filter(id=pid)
