@@ -247,8 +247,9 @@ def excelwrite(request, id):
     conn.close()
     return redirect("/update/{}".format(pid[0]))
 
+"""
 def excelread(request ,id):
-    location = ("C:/Users/Mert/Desktop/Örnek_Excel.xlsx")
+    location = os.getcwd() #("C:/Users/Mert/Desktop/Örnek_Excel.xlsx")
     workbook = xlrd.open_workbook(location)
     sheet = workbook.sheet_by_index(0)
     maxCell = 8
@@ -266,9 +267,9 @@ def excelread(request ,id):
     except:
         pass
 
-    print(table)
+    #print(table)
     return redirect("main")
-
+"""
 def dropdown(request, id, pid):
     person = Worker.objects.filter(id=pid)
 
