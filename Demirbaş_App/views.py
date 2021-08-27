@@ -283,15 +283,21 @@ def superregister(request):
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         key = form.cleaned_data.get("special_key")
-
+        person = str(username)
         newUser = User(username=username)
         newUser.set_password(password)
+        newUser.save()
 
-        #newUser.save()
         conn = sqlite3.connect('db.sqlite3')
-        query = "INSERT INTO Demirbaş_App_worker (person, superuser) VALUES ('{}', {})".format(username, 1)
-        c = conn.cursor()
-        c.execute(query)
+        c1 = conn.cursor()
+        query1 = "UPDATE Demirbaş_App_worker SET superuser = {} WHERE superuser = {}".format(0, 1)
+        c1.execute(query1)
+        conn.commit()
+
+        c2 = conn.cursor()
+        query2 = "INSERT INTO Demirbaş_App_worker (person, superuser) VALUES ('{}', {})".format(person, 1)
+        c2.execute(query2)
+        conn.commit()
 
         return redirect("login")
 
