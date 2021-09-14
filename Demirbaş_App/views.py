@@ -171,6 +171,7 @@ def addPerson(request):
     else:
         return render(request, "addPerson.html", {"form": form})
 
+
 @login_required(login_url = 'login')
 def allData(request):
     datas = Device.objects.all()
@@ -240,6 +241,7 @@ def objectEdit(request, id):
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
     sayman = Worker.objects.filter(superuser=1)
+
     username1 = request.user.username
     print(object[0])
 
@@ -254,6 +256,7 @@ def objectDelete(request, id):
     result2 = conn.cursor()
     result2.execute(query2)
     pid = result2.fetchone()
+
 
     query4 = "SELECT stok, device FROM Demirbaş_App_device WHERE id = '{}'".format(id)
     Result4 = conn.cursor()
@@ -403,6 +406,7 @@ def excelwrite(request, id):
     conn.close()
     return redirect("/update/{}".format(pid[0]))
 
+
 def excelread(request, id):
     if request.method == 'POST':
         uploadedFile = request.FILES['file']
@@ -484,6 +488,7 @@ def dropdownAll(request, id, pid):
     conn.close()
     return redirect("allData")
 
+
 @login_required(login_url='login')
 def dropConfirmAll(request, id, pid):
     taker = Worker.objects.filter(id=pid)
@@ -491,6 +496,7 @@ def dropConfirmAll(request, id, pid):
     mainperson = Worker.objects.filter(superuser=1)
     all = 1
     return render(request, "dropConfirm.html", {"taker": taker[0], "device": device[0], "all": all})
+
 
 def register(request):
     form = RegisterForm(request.POST or None)

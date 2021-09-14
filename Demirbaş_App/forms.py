@@ -38,7 +38,11 @@ class RegisterForm(forms.Form):
 class DataForm(forms.ModelForm):
     class Meta:
         model = Device
+<<<<<<< HEAD
         fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp", "iz", "price", "take_date", "zim_date"]
+=======
+        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp", "take_date", "zim_date"]
+>>>>>>> 5137a21af08758a95194256750dd30c1139c0c54
 
 
 
@@ -47,5 +51,9 @@ class WorkerName(forms.ModelForm):
         model = Worker
         fields = ["person"]
 
+<<<<<<< HEAD
 class File(forms.FileInput):
     pass
+=======
+
+>>>>>>> 5137a21af08758a95194256750dd30c1139c0c54
