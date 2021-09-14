@@ -18,6 +18,17 @@ class Device(models.Model):
     serial = models.CharField(max_length=50, null=True, blank=True, verbose_name="Seri No")
     status = models.CharField(max_length=50, null=True, blank=True, verbose_name="Durumu")
     exp = models.CharField(max_length=100, null=True, blank=True, verbose_name="Açıklama")
-
+    iz = models.CharField(max_length=100000000, null=True, blank=True, verbose_name="Eski Kullanıcı / Tarih")
+    price = models.CharField(max_length=15, null=True, blank=True, verbose_name="Fiyat")
+    take_date = models.CharField(max_length=50, null=True, blank=True, verbose_name="Alım Tarihi")
+    zim_date = models.CharField(max_length=50, null=True, blank=True, verbose_name="Zimmet Tarihi")
     def __str__(self):
         return str(self.person_id)
+
+
+class History(models.Model):
+   who = models.CharField(max_length=30,null=True, blank=True, verbose_name="Kullanıcı Adı")
+   operation_type = models.CharField(max_length=30, null=True, blank=True, verbose_name="İşlem Türü")
+   stok = models.CharField(max_length=30, null=True, blank=True, verbose_name="Stok")
+   device = models.CharField(max_length=30, null=True, blank=True, verbose_name="Cihaz")
+   operation_date = models.CharField(max_length=40,null=True, blank=True, verbose_name="Tarih")

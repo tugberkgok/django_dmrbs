@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from .models import Worker, Device
 
 
@@ -37,7 +38,7 @@ class RegisterForm(forms.Form):
 class DataForm(forms.ModelForm):
     class Meta:
         model = Device
-        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp"]
+        fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp", "iz", "price", "take_date", "zim_date"]
 
 
 
@@ -45,3 +46,6 @@ class WorkerName(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ["person"]
+
+class File(forms.FileInput):
+    pass
