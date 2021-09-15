@@ -1,8 +1,8 @@
 import os
 import sqlite3
 import openpyxl
-import operator
-import re
+import datetime
+import locale
 from django.shortcuts import render, redirect, get_object_or_404
 from xlsxwriter.workbook import Workbook
 from .models import Worker, Device
@@ -11,6 +11,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+locale.setlocale(locale.LC_ALL, '')
+an = datetime.datetime.now()
+tarih = datetime.datetime.strftime(an, '%c')
 
 # Create your views here.
 @login_required(login_url = 'login')
@@ -107,20 +111,28 @@ def personConfirm(request, id):
 
 @login_required(login_url = 'login')
 def delete(request, id):
-    worker = get_object_or_404(Worker, id=id)
+    person = Worker.objects.filter(id=id)
     sayman = Worker.objects.filter(superuser=1)
+    username = request.user.username
+
     conn = sqlite3.connect('db.sqlite3')
     query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(sayman[0])
     result1 = conn.cursor()
     result1.execute(query1)
     sid = result1.fetchone()
     conn = sqlite3.connect('db.sqlite3')
+
     cursor = conn.cursor()
     query3 = "UPDATE Demirbaş_App_device SET person_id_id = '{}' WHERE person_id_id = '{}'".format(sid[0], id)
     cursor.execute(query3)
     conn.commit()
+    query3 = "INSERT INTO Demirbaş_App_history (who, whom, operation_type, operation_date) VALUES ('{}', '{}', '{}', '{}')" \
+        .format(username, person[0], "Çalışan Silindi", tarih)
+    c = conn.cursor()
+    c.execute(query3)
+    conn.commit()
     conn.close()
-    worker.delete()
+    person.delete()
     return redirect("main")
 
 def loginUser(request):
@@ -150,17 +162,27 @@ def addPerson(request):
         result = conn.cursor()
         result.execute(query)
         name = result.fetchone()
-        conn.close()
+        username = request.user.username
         try:
             if str(form["person"].value()) != str(name[0]):
+                query2 = "INSERT INTO Demirbaş_App_history (who, operation_type, whom, operation_date) VALUES ('{}', '{}', '{}', '{}')" \
+                    .format(username, "Çalışan Eklendi", form["person"].value(), tarih)
+                result2 = conn.cursor()
+                result2.execute(query2)
+                conn.commit()
+                conn.close()
                 form.save()
-                messages.success(request, "Kişi Kaydedildi")
                 return redirect("main")
             else:
                 return render(request, "addPerson.html", {"form": form, "name": name})
         except:
+            query2 = "INSERT INTO Demirbaş_App_history (who, operation_type, whom, operation_date) VALUES ('{}', '{}', '{}', '{}')" \
+                .format(username, "Çalışan Eklendi", form["person"].value(), tarih)
+            result2 = conn.cursor()
+            result2.execute(query2)
+            conn.commit()
+            conn.close()
             form.save()
-            messages.success(request, "Kişi Kaydedildi")
             return redirect("main")
     else:
         return render(request, "addPerson.html", {"form": form})
@@ -178,21 +200,31 @@ def addData(request, id):
     form = DataForm(request.POST or None)
     if form.is_valid():
         conn = sqlite3.connect('db.sqlite3')
+
         query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(person[0])
         result = conn.cursor()
         result.execute(query1)
         pid = result.fetchone()
-        query2 = "INSERT INTO Demirbaş_App_device (stok, device, number, brand, model, serial, status, exp, person_id_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
-                .format(str(form["stok"].value()), str(form["device"].value()), str(form["number"].value()), str(form["brand"].value()), str(form["model"].value()),
-                        str(form["serial"].value()), str(form["status"].value()), str(form["exp"].value()), pid[0])
+
+        query2 = "INSERT INTO Demirbaş_App_device (stok, device, number, brand, model, serial, status, exp, person_id_id) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')" \
+            .format(str(form["stok"].value()), str(form["device"].value()), str(form["number"].value()),
+                    str(form["brand"].value()), str(form["model"].value()),
+                    str(form["serial"].value()), str(form["status"].value()), str(form["exp"].value()), pid[0])
         c = conn.cursor()
         c.execute(query2)
         conn.commit()
+
+        username1 = request.user.username
+        query3 = "INSERT INTO Demirbaş_App_history (who, whom, operation_type, stok, device, operation_date) VALUES ('{}', '{}', '{}', '{}', '{}', '{}')" \
+            .format(username1, person[0], "Demirbaş Eklendi", str(form["stok"].value()), str(form["device"].value()), tarih)
+        c = conn.cursor()
+        c.execute(query3)
+        conn.commit()
         conn.close()
+
         return redirect("/update/{}".format(pid[0]))
 
     return render(request, "addData.html", {"form": form})
-
 
 @login_required(login_url = 'login')
 def objectEdit(request, id):
@@ -202,20 +234,29 @@ def objectEdit(request, id):
     result = conn.cursor()
     result.execute(query)
     pid = result.fetchone()
-    conn.close()
+    username1 = request.user.username
     form = DataForm(request.POST or None, request.FILES or None, instance=get_object_or_404(Device, id=id))
+    query3 = "INSERT INTO Demirbaş_App_history (who, operation_type, stok, device, operation_date) VALUES ('{}', '{}', '{}', '{}', '{}')" \
+        .format(username1, "Veriler Düzenlendi", str(form["stok"].value()), str(form["device"].value()), tarih)
+    c = conn.cursor()
+    c.execute(query3)
+    conn.commit()
+    conn.close()
     if form.is_valid():
         form.save()
         return redirect("/update/{}".format(pid[0]))
-
     return render(request, "objectEdit.html", {"form": form})
 
 @login_required(login_url = 'login')
 def objectDelete(request, id):
     object = Device.objects.filter(id=id)
     sayman = Worker.objects.filter(superuser=1)
+    username = request.user.username
+    print(object[0])
 
     conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+
     query1 = "SELECT id FROM Demirbaş_App_worker WHERE person = '{}'".format(sayman[0])
     result1 = conn.cursor()
     result1.execute(query1)
@@ -225,7 +266,18 @@ def objectDelete(request, id):
     result2.execute(query2)
     pid = result2.fetchone()
 
+    query4 = "SELECT stok, device FROM Demirbaş_App_device WHERE id = '{}'".format(id)
+    Result4 = conn.cursor()
+    Result4.execute(query4)
+    data = Result4.fetchall()
+    print(data)
+
     if str(object[0]) == str(sayman[0]):
+        query3 = "INSERT INTO Demirbaş_App_history (who, operation_type, stok, device, operation_date) VALUES ('{}', '{}', '{}', '{}', '{}')"\
+                .format(username, "Demirbaş Silindi", data[0][0], data[0][1], tarih)
+        c = conn.cursor()
+        c.execute(query3)
+        conn.commit()
         conn.close()
         object.delete()
         return redirect("/update/{}".format(sid[0]))
@@ -234,6 +286,13 @@ def objectDelete(request, id):
         query3 = "UPDATE Demirbaş_App_device SET person_id_id = '{}' WHERE id = '{}'".format(sid[0], id)
         cursor.execute(query3)
         conn.commit()
+
+        query5 = "INSERT INTO Demirbaş_App_history (who, operation_type, stok, device, operation_date) VALUES ('{}', '{}', '{}', '{}', '{}')"\
+                .format(username, "Saymana Aktarıldı", data[0][0], data[0][1], tarih)
+        c = conn.cursor()
+        c.execute(query5)
+        conn.commit()
+
         conn.close()
         return redirect("/update/{}".format(pid[0]))
 
@@ -356,6 +415,7 @@ def excelwrite(request, id):
     return redirect("/update/{}".format(pid[0]))
 
 def excelread(request, id):
+    person = Worker.objects.filter(id=id)
     if request.method == 'POST':
         uploadedFile = request.FILES['file']
         workbook = openpyxl.load_workbook(uploadedFile)
@@ -378,6 +438,12 @@ def excelread(request, id):
                 .format(excel_data[num+1][y+1], excel_data[num+1][y+2], excel_data[num+1][y+3], excel_data[num+1][y+4], excel_data[num+1][y+6], excel_data[num+1][y+7],
                         excel_data[num+1][y+8], excel_data[num+1][y+5], id, excel_data[num+1][y+11], excel_data[num+1][y+12], excel_data[num+1][y+10], excel_data[num+1][y+9])
             c.execute(query)
+            conn.commit()
+            username1 = request.user.username
+            query3 = "INSERT INTO Demirbaş_App_history (who, whom, operation_type, stok, device, operation_date) VALUES ('{}', '{}', '{}', '{}', '{}', '{}')" \
+                .format(username1, person[0], "Demirbaş Eklendi", excel_data[num+1][y+1], excel_data[num+1][y+2], tarih)
+            c = conn.cursor()
+            c.execute(query3)
             conn.commit()
         conn.close()
         return redirect("/update/{}".format(id))
@@ -500,7 +566,7 @@ def users(request):
     datas = []
     for x in range(9):
         list = []
-        for y in range(3):
+        for y in range(5):
             try:
                 list.append(data[x][y])
             except:
@@ -530,3 +596,20 @@ def userDelete(request, id):
     conn.close()
     return redirect("users")
 
+def history(request):
+    conn = sqlite3.connect('db.sqlite3')
+    query = "SELECT who, whom, operation_type, stok, device, operation_date FROM Demirbaş_App_history ORDER BY id DESC"
+    result = conn.cursor()
+    result.execute(query)
+    data = result.fetchall()
+    datas = []
+    for x in range(50):
+        list = []
+        for y in range(6):
+            try:
+                list.append(data[x][y])
+            except:
+                break
+        datas.append(list)
+
+    return render(request, "history.html", {"datas": datas})

@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from .models import Worker, Device
 
 
@@ -11,7 +12,6 @@ class RegisterForm(forms.Form):
     password = forms.CharField(max_length=20, label="Parola", widget=forms.PasswordInput)
     confirm = forms.CharField(max_length=20, label="Parolayı doğrula", widget=forms.PasswordInput)
     special_key= forms.CharField(max_length=20, label="Özel Anahtar", widget=forms.PasswordInput)
-
 
     def clean(self):
 
@@ -32,21 +32,13 @@ class RegisterForm(forms.Form):
         values = {"username": username, "password": password}
         return values
 
-
-
 class DataForm(forms.ModelForm):
     class Meta:
         model = Device
         fields = ["stok", "device", "number", "brand", "model", "serial", "status", "exp", "iz", "price", "take_date", "zim_date"]
 
-
-
 class WorkerName(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ["person"]
-
-class File(forms.FileInput):
-    pass
-
 
